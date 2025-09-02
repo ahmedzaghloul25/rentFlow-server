@@ -1,76 +1,119 @@
-```markdown
-# rentFlow
 
-## Project Status
-**Completed**
+-----
 
-## Objective
-rentFlow is a backend system built with **NestJS** and **Mongoose** that streamlines property management tasks. It allows users to register their properties, manage clients, create rental contracts, and track payment records. The project also integrates authentication, session handling, and logging, providing a secure and scalable foundation for real-world rental workflows.
+\<div align="center"\>
 
-## Installation
+# rentFlow 🏡
 
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   cd rentFlow
-   ```
+**A robust backend system for streamlined property and rental management.**
 
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
+\</div\>
 
-3. Set up the environment variables in a `.env` file:
-   ```env
-   DB_URL=<your-mongodb-uri>
-   PORT=<application-port>
-   SALT_ROUND=<bcrypt-salt-rounds>
-   GOOGLE_CLIENT_ID=<google-oauth-client-id>
-   GOOGLE_CLIENT_SECRET=<google-oauth-client-secret>
-   SESSION_SECRET=<express-session-secret>
-   JWT_SECRET_ACCESS=<jwt-secret>
-   MODE=<development-or-production>
-   COOKIE_SECRET=<cookie-secret>
-   ```
+\<p align="center"\>
+\<img alt="NestJS" src="[https://img.shields.io/badge/NestJS-%23E0234E.svg?style=for-the-badge\&logo=nestjs\&logoColor=white](https://www.google.com/search?q=https://img.shields.io/badge/NestJS-%2523E0234E.svg%3Fstyle%3Dfor-the-badge%26logo%3Dnestjs%26logoColor%3Dwhite)" /\>
+\<img alt="MongoDB" src="[https://img.shields.io/badge/MongoDB-%2347A248.svg?style=for-the-badge\&logo=mongodb\&logoColor=white](https://www.google.com/search?q=https://img.shields.io/badge/MongoDB-%252347A248.svg%3Fstyle%3Dfor-the-badge%26logo%3Dmongodb%26logoColor%3Dwhite)" /\>
+\<img alt="TypeScript" src="[https://img.shields.io/badge/TypeScript-%233178C6.svg?style=for-the-badge\&logo=typescript\&logoColor=white](https://www.google.com/search?q=https://img.shields.io/badge/TypeScript-%25233178C6.svg%3Fstyle%3Dfor-the-badge%26logo%3Dtypescript%26logoColor%3Dwhite)" /\>
+\</p\>
 
-4. Build the project (optional):
-   ```bash
-   npm run build
-   ```
+## ✨ Key Features
 
-## Usage
+  * **Property Management:** Register and manage property details with ease.
+  * **Client Database:** Maintain a comprehensive record of all your clients.
+  * **Contract Generation:** Create and track rental contracts digitally.
+  * **Payment Tracking:** Log and monitor payment records for each contract.
+  * **Secure Authentication:** Built-in authentication, session handling, and logging.
 
-Start the backend in watch mode for development:
-```bash
-npm run start:dev
-```
+## 🛠️ Tech Stack
 
-Other useful scripts:
-- Start production build:
-  ```bash
-  npm run start:prod
-  ```
-- Run tests:
-  ```bash
-  npm run test
-  ```
-- Lint code:
-  ```bash
-  npm run lint
-  ```
+  * **Backend:** [NestJS](https://docs.nestjs.com/)
+  * **Database:** [Mongoose](https://mongoosejs.com/) (for MongoDB)
+  * **Authentication:** [Passport.js](http://www.passportjs.org/)
+  * **Logging:** [Winston](https://github.com/winstonjs/winston)
 
-## To-Do
-- :bookmark_tabs: Enable saving contract scans to cloud storage.
+## 🚀 Getting Started
 
-## External Documentation and Resources
-- [NestJS Documentation](https://docs.nestjs.com/)
-- [Mongoose Documentation](https://mongoosejs.com/)
-- [Passport (Authentication)](http://www.passportjs.org/)
-- [Winston (Logging)](https://github.com/winstonjs/winston)
+Follow these instructions to get a copy of the project up and running on your local machine.
 
----
+### Prerequisites
 
-_Last Updated: 2025-09-03_
-```
+  * Node.js (v18 or later)
+  * npm
+  * A running MongoDB instance
 
-Would you like me to also add an **API Endpoints** section (with placeholder routes for properties, clients, contracts, and payments), so future users know where to start?
+### Installation
+
+1.  **Clone the repository:**
+
+    ```bash
+    git clone https://github.com/ahmedzaghloul25/rentFlow-server.git
+    cd rentFlow-server
+    ```
+
+2.  **Install dependencies:**
+
+    ```bash
+    npm install
+    ```
+
+3.  **Set up environment variables:**
+    Create a `.env` file in the root directory and add the following variables:
+
+    ```env
+    DB_URL=<your-mongodb-uri>
+    PORT=3000
+    SALT_ROUND=10
+    GOOGLE_CLIENT_ID=<google-oauth-client-id>
+    GOOGLE_CLIENT_SECRET=<google-oauth-client-secret>
+    SESSION_SECRET=<your-express-session-secret>
+    JWT_SECRET_ACCESS=<your-jwt-secret>
+    MODE=development
+    COOKIE_SECRET=<your-cookie-secret>
+    ```
+
+## ⚙️ Usage
+
+### Running the Application
+
+  * **Development Mode** (with hot-reloading):
+
+    ```bash
+    npm run start:dev
+    ```
+
+  * **Production Mode:**
+
+    ```bash
+    # First, build the project
+    npm run build
+
+    # Then, start the production server
+    npm run start:prod
+    ```
+
+### Other Scripts
+
+  * **Run Tests:**
+
+    ```bash
+    npm run test
+    ```
+
+  * **Lint Code:**
+
+    ```bash
+    npm run lint
+    ```
+
+## 🗺️ Roadmap
+
+  - [ ] Enable saving contract scans to cloud storage (e.g., AWS S3, Cloudinary).
+
+## 🤝 Contributing
+
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+Please feel free to fork the repo and create a pull request.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the `LICENSE.md` file for details.
