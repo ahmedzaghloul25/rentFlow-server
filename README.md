@@ -1,16 +1,6 @@
-\<div align="center"\>
-
 # rentFlow 🏡
 
 **A robust backend system for streamlined property and rental management.**
-
-\</div\>
-
-\<p align="center"\>
-\<img alt="NestJS" src="[https://img.shields.io/badge/NestJS-%23E0234E.svg?style=for-the-badge\&logo=nestjs\&logoColor=white](https://www.google.com/search?q=https://img.shields.io/badge/NestJS-%2523E0234E.svg%3Fstyle%3Dfor-the-badge%26logo%3Dnestjs%26logoColor%3Dwhite)" /\>
-\<img alt="MongoDB" src="[https://img.shields.io/badge/MongoDB-%2347A248.svg?style=for-the-badge\&logo=mongodb\&logoColor=white](https://www.google.com/search?q=https://img.shields.io/badge/MongoDB-%252347A248.svg%3Fstyle%3Dfor-the-badge%26logo%3Dmongodb%26logoColor%3Dwhite)" /\>
-\<img alt="TypeScript" src="[https://img.shields.io/badge/TypeScript-%233178C6.svg?style=for-the-badge\&logo=typescript\&logoColor=white](https://www.google.com/search?q=https://img.shields.io/badge/TypeScript-%25233178C6.svg%3Fstyle%3Dfor-the-badge%26logo%3Dtypescript%26logoColor%3Dwhite)" /\>
-\</p\>
 
 ## ✨ Key Features
 
