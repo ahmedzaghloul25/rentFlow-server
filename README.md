@@ -57,6 +57,7 @@ Follow these instructions to get a copy of the project up and running on your lo
     MODE=development
     COOKIE_SECRET=<your-cookie-secret>
     CSRF_SECRET=<your-csrf-secret>
+    CLIENT_URL=<your-client-url-(deployed)>
     ```
 
 ## ⚙️ Usage

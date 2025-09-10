@@ -17,7 +17,7 @@ async function bootstrap() {
   // const port = process.env.PORT ?? 3000;
   app.use(helmet());
   app.enableCors({
-    origin: APP_CONSTANTS.CLIENT_URL,
+    origin: process.env.CLIENT_URL,
     credentials: true,
   });
   app.use(cookieParser(process.env.COOKIE_SECRET as string));
