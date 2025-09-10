@@ -63,8 +63,9 @@ export class Schedulers {
         this.logger.log('Starting remaining payments auto-creation job...', Schedulers.name);
         // Find contracts that have first payment but not all payments created
         const contracts = await this.contractRepo.findAllRecords({
-            start_date: { $gte: new Date() },
-            isPaymentsCreated: false
+            // start_date: { $gte: new Date() },
+            isPaymentsCreated: false,
+            is_terminated: false
         }) as ContractDoc[];
         if (!contracts || contracts.length === 0) {
             this.logger.log('No contracts found for remaining payment creation', Schedulers.name);
@@ -108,6 +109,7 @@ export class Schedulers {
                     const adjustedAmount = baseAmount * Math.pow(1 + (annualIncrease / 100), yearsElapsed);
                     const paymentRecord = {
                         contract_id: contract._id,
+                        user_id : contract.user_id,
                         due_date: dueDate,
                         due_amount: Math.round(adjustedAmount * 100) / 100, // Round to 2 decimal places
                         is_paid: false

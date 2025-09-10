@@ -14,7 +14,7 @@ export function IsFutureDate(validationOptions?: ValidationOptions) {
             options: validationOptions,
             constraints: [],
             validator: {
-                validate(value: Date, validationArguments: ValidationArguments) {
+                validate(value: Date) {
                     const now = new Date()
                     return value instanceof Date && value > now
                 },

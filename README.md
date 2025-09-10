@@ -46,7 +46,8 @@ Follow these instructions to get a copy of the project up and running on your lo
     Create a `.env` file in the root directory and add the following variables:
 
     ```env
-    DB_URL=<your-mongodb-uri>
+    DB_URL=<your-local-mongodb-uri>
+    DB_ONLINE=<your-online-mongodb-uri>
     PORT=3000
     SALT_ROUND=10
     GOOGLE_CLIENT_ID=<google-oauth-client-id>
@@ -55,6 +56,7 @@ Follow these instructions to get a copy of the project up and running on your lo
     JWT_SECRET_ACCESS=<your-jwt-secret>
     MODE=development
     COOKIE_SECRET=<your-cookie-secret>
+    CSRF_SECRET=<your-csrf-secret>
     ```
 
 ## ⚙️ Usage

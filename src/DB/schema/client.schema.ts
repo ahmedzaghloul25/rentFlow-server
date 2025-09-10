@@ -56,7 +56,7 @@ export class Client {
 }
 
 export const clientSchema = SchemaFactory.createForClass(Client)
-clientSchema.index({ user_id: 1, ID_no: 1, phone: 1 }, { unique: true })
+clientSchema.index({ user_id: 1, ID_no: 1}, { unique: true })
 export const clientModule = MongooseModule.forFeature([
     { name: Client.name, schema: clientSchema }
 ])

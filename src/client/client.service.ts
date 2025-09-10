@@ -23,6 +23,7 @@ export class ClientService {
      */
     async addNewClient(req: _Request, body: ClientDto) {
         try {
+            
             const client = await this.clientRepo.createNew({ ...body, user_id: req.user._id })
             return { message: 'client added successfully', client }
         } catch (error) {
@@ -41,10 +42,12 @@ export class ClientService {
     async deleteClient(req: _Request, client: ClientDoc) {
         try {
             if (!req.user._id.equals(client.user_id)) {
+                console.log('not equal');
+                
                 throw new UnauthorizedException('UNAUTHORIZED_ACTION')
             }
             const activeContract = await this.contractRepo.findOneRecord({
-                user_id: req.user._id,
+                client_id: client._id,
                 is_terminated: { $exists: false },
                 end_date: { $gte: new Date() },
                 actual_end_date: null
@@ -78,8 +81,8 @@ export class ClientService {
             const cacheKey = `CLIENTS_${req.user._id}_PAGE_${page}_LIMIT_${limit}`;
             const cachedResult = await this.cache.get(cacheKey);
             if (!cachedResult) {
-                const clients = await this.clientRepo.findAllRecords({ user_id: req.user._id }, {}, skip, limit);
-                const totalCount = await this.clientRepo.countRecords({ user_id: req.user._id });
+                const clients = await this.clientRepo.findAllRecords({ user_id: req.user._id, isDeleted: {$exists: false} }, {}, skip, limit);
+                const totalCount = await this.clientRepo.countRecords({ user_id: req.user._id, isDeleted: {$exists: false} });
                 const result = {
                     message: "clients fetched successfully",
                     pagination: {

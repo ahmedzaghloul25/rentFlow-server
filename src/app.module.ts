@@ -12,27 +12,29 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { Schedulers } from 'common/services';
 import { PaymentModule } from './payment/payment.module';
 import { APP_CONSTANTS } from 'common/constants';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: "./config/.env",
+      envFilePath: "./.env",
       isGlobal: true
     }),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
-        uri: configService.get<string>('DB_URL')
+        uri: configService.get<string>('DB_ONLINE')
       }),
       inject: [ConfigService]
     }),
-    CacheModule.register({ttl:APP_CONSTANTS.CACHE_TTL,isGlobal: true}),
+    CacheModule.register({ ttl: APP_CONSTANTS.CACHE_TTL, isGlobal: true }),
     ScheduleModule.forRoot(),
     AuthModule,
     PropertyModule,
     ClientModule,
     ContractModule,
-    PaymentModule
+    PaymentModule,
+    DashboardModule
   ],
   controllers: [AppController],
   providers: [AppService, Schedulers],

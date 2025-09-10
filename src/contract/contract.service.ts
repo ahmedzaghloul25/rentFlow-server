@@ -8,7 +8,6 @@ import {
     UnauthorizedException
 } from '@nestjs/common';
 import { _Request } from 'common/types';
-import { Types } from 'mongoose';
 import { ContractRepo, PaymentRepo } from 'src/DB/repo';
 import { ContractDoc, PropertyDoc } from 'src/DB/schema';
 import { Logger } from '@nestjs/common';
@@ -41,7 +40,7 @@ export class ContractService {
                 property_id: property._id,
                 end_date: { $gte: new Date() },
                 actual_end_date: null,
-                is_terminated: { $exists: false }
+                is_terminated: false
             })
             if (validContract) {
                 throw new UnauthorizedException('ACTIVE_CONTRACT_FOUND')
@@ -56,6 +55,7 @@ export class ContractService {
             }) as ContractDoc
             await this.paymentRepo.createNew({
                 contract_id: contract._id,
+                user_id: req.user._id,
                 due_date: contract.start_date,
                 due_amount: contract.initial_rent
             })
@@ -87,7 +87,7 @@ export class ContractService {
             const contract = await this.contractRepo.findOneRecordAndUpdate(
                 {
                     _id: contractId,
-                    is_terminated: { $exists: false },
+                    is_terminated: false,
                     user_id: req.user._id
                 },
                 {
@@ -106,6 +106,9 @@ export class ContractService {
                 }
             )
             this.logger.warn(`Contract ${contract._id} was terminated successfully`, ContractService.name)
+            await this.cache.del(`CONTRACTS_USER_${req.user._id}*`); 
+            await this.cache.del(`DASHBOARD_SUMMARY_USER_${req.user._id}`); 
+            await this.cache.del(`DASHBOARD_FINANCE_USER_${req.user._id}`);
             return {
                 message: 'Contract terminated successfully', contract: {
                     _id: contract._id,
@@ -148,7 +151,8 @@ export class ContractService {
                     },
                     {},
                     skip,
-                    limit
+                    limit,
+                    ['property_id', 'client_id']
                 )
                 if (!contracts.length) throw new NotFoundException('CONTRACTS_NOT_FOUND')
                 const totalCount = await this.contractRepo.countRecords({ user_id: req.user._id, ...(cleanedFilters) })
@@ -184,7 +188,7 @@ export class ContractService {
             const cachedContract = await this.cache.get(cacheKey)
 
             if (!cachedContract) {
-                const contract = await this.contractRepo.findOneRecord({ _id: contractId })
+                const contract = await this.contractRepo.findOneRecord({ _id: contractId },['property_id'])
                 if (!contract || !contract.user_id.equals(req.user._id)) {
                     throw new BadRequestException('BAD_REQUEST')
                 }

@@ -42,7 +42,9 @@ export class Contract {
     @Prop()
     actual_end_date: Date
 
-    @Prop()
+    @Prop({
+        default: false
+    })
     is_terminated: boolean
 
     @Prop({

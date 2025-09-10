@@ -20,13 +20,12 @@ export class AuthService {
      * @returns object containing success boolean, message and user created
      */
     //====================== registerNewUser ===============================
-    async registerNewUser(req: GoogleReq) {
+    async registerNewUser(req: GoogleReq, res: Response) {
         try {
             if (!req.user.isVerified) throw new UnauthorizedException('USER_NOT_VERIFIED')
             const newUser = await this.userRepo.createNew(req.user)
-            return {
-                message: 'user registered successfully',
-                user: newUser
+            if (newUser) {
+                return res.redirect(`${APP_CONSTANTS.CLIENT_URL}/auth/login`)
             }
         } catch (error) {
             if (error.errorResponse.code === 11000) {
@@ -51,7 +50,8 @@ export class AuthService {
             if (!fetchedUser) throw new UnauthorizedException('EMAIL_NOT_REGISTERED')
             const accessToken = await this.jwtToken.createToken(fetchedUser)
             await this.userRepo.updateOneRecord({ _id: fetchedUser._id }, { isLoggedIn: true })
-            return res.cookie(APP_CONSTANTS.TOKEN_NAME, accessToken, APP_CONSTANTS.COOKIE_OPTIONS);
+            return res.cookie(APP_CONSTANTS.TOKEN_NAME, accessToken, APP_CONSTANTS.COOKIE_OPTIONS)
+                .redirect(`${APP_CONSTANTS.CLIENT_URL}/dashboard`);
         } catch (error) {
             if (error instanceof HttpException) throw error
             this.logger.error(`Failed to login for user ${req.user.email}`, error.stack, AuthService.name)
@@ -71,12 +71,13 @@ export class AuthService {
             if (!result.modifiedCount) {
                 throw new NotFoundException('USER_NOT_FOUND')
             }
-            return res.clearCookie(APP_CONSTANTS.TOKEN_NAME, {
+            res.clearCookie(APP_CONSTANTS.TOKEN_NAME, {
                 httpOnly: APP_CONSTANTS.COOKIE_OPTIONS.httpOnly,
                 sameSite: APP_CONSTANTS.COOKIE_OPTIONS.sameSite,
                 secure: APP_CONSTANTS.COOKIE_OPTIONS.secure,
                 signed: APP_CONSTANTS.COOKIE_OPTIONS.signed
             })
+            return res.status(200).json({ message: 'logged out successfully' })
         } catch (error) {
             if (error instanceof HttpException) throw error
             this.logger.error(`Failed to logout for user ${req.user._id}`, error.stack, AuthService.name)

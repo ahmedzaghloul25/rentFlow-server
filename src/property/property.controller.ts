@@ -1,9 +1,8 @@
-import { Body, Controller, Delete, Get, InternalServerErrorException, Param, Post, Query, Req, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Query, Req, UseGuards } from '@nestjs/common';
 import { PropertyService } from './property.service';
 import { ValidateToken } from 'common/guards';
 import type { _Request } from 'common/types';
 import { AddNewProperty } from './DTO/propertyDto';
-import type { Response } from 'express';
 import { ValidateProperty } from 'common/pipes';
 import type { PropertyDoc } from 'src/DB/schema';
 

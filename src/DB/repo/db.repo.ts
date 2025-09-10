@@ -1,4 +1,4 @@
-import { DeleteResult, FilterQuery, Model, PopulateOptions, ProjectionType, Types, UpdateQuery, UpdateResult } from "mongoose";
+import { Aggregate, AggregateOptions, DeleteResult, FilterQuery, Model, PipelineStage, PopulateOptions, ProjectionType, SortOrder, UpdateQuery, UpdateResult } from "mongoose";
 
 
 export abstract class DbRepo<T> {
@@ -22,11 +22,13 @@ export abstract class DbRepo<T> {
         options?: ProjectionType<T>,
         skip: number = 0,
         limit: number = 100,
-        populate?: PopulateOptions | (PopulateOptions | string)[]
-    ): Promise<T[] | never[]> {
-        if (!populate) return await this.model.find(query, options).skip(skip).limit(limit)
-        return await this.model.find(query, options).skip(skip).limit(limit).populate(populate);
+        populate?: PopulateOptions | (PopulateOptions | string)[],
+        sort?: { [key: string]: SortOrder },
+    ): Promise<T[]> {
+        if (!populate) return await this.model.find(query, options).sort(sort).skip(skip).limit(limit)
+        return await this.model.find(query, options).sort(sort).skip(skip).limit(limit).populate(populate);
     }
+
     async countRecords(query?: FilterQuery<T>): Promise<number> {
         return await this.model.countDocuments(query);
     }
@@ -69,5 +71,9 @@ export abstract class DbRepo<T> {
         data: UpdateQuery<T>
     ): Promise<UpdateResult> {
         return await this.model.updateMany(query, data);
+    }
+
+    async aggregate(pipeline: PipelineStage[], options?: AggregateOptions): Promise<Aggregate<T[]>> {
+        return await this.model.aggregate(pipeline, options)
     }
 }

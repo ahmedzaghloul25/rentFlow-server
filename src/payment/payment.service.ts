@@ -1,4 +1,4 @@
-import { BadRequestException, HttpException, Inject, Injectable, InternalServerErrorException, Logger, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, HttpException, Inject, Injectable, InternalServerErrorException, Logger, NotFoundException } from '@nestjs/common';
 import { _Request, PopulatedPayment } from 'common/types';
 import { PaymentRepo } from 'src/DB/repo';
 import { MarkPaymentPaidDto, PaymentsQueryFilter } from './DTO';
@@ -64,25 +64,34 @@ export class PaymentService {
                         value !== null
                 })
             )
-            const cacheKey = `PAYMENTS_USER_${req.user._id}_CONTRACT_${contractId}_PAGE_${page}_LIMIT_${limit}_FILTERS_${cleanedFilters}`
+            const cacheKey = `PAYMENTS_USER_${req.user._id}_CONTRACT_${contractId}_PAGE_${page}_LIMIT_${limit}_FILTERS_${JSON.stringify(cleanedFilters)}`
             const cachedPayments = await this.cache.get(cacheKey)
             if (!cachedPayments) {
-                const paymentCheck = await this.paymentRepo.findOneRecord(
-                    { contract_id: new Types.ObjectId(contractId), ...(cleanedFilters) },
-                    ['contract_id']
-                ) as PopulatedPayment | null
-                if (!paymentCheck || !paymentCheck.contract_id.user_id.equals(req.user._id)) {
-                    throw new UnauthorizedException('UNAUTHORIZED_ACTION')
-                }
+                // const paymentCheck = await this.paymentRepo.findOneRecord(
+                //     { contract_id: new Types.ObjectId(contractId), ...(cleanedFilters) },
+                //     ['contract_id']
+                // ) as PopulatedPayment | null
+                // if (!paymentCheck || !paymentCheck.contract_id.user_id.equals(req.user._id)) {
+                //     throw new UnauthorizedException('UNAUTHORIZED_ACTION')
+                // }
                 const skip = (page - 1) * limit
                 const payments = await this.paymentRepo.findAllRecords(
-                    { contract_id: new Types.ObjectId(contractId), ...(cleanedFilters) },
+                    {
+                        contract_id: new Types.ObjectId(contractId),
+                        user_id: req.user._id,
+                        ...(cleanedFilters)
+                    },
                     {},
                     skip,
-                    limit
+                    limit,
+                    ['contract_id'],
+                    { 'due_date': 1 }
                 )
+                if (!payments.length) throw new NotFoundException('PAYMENT_RECORDS_NOT_FOUND')
                 const totalCount = await this.paymentRepo.countRecords({
-                    contract_id: new Types.ObjectId(contractId), ...(cleanedFilters)
+                    contract_id: new Types.ObjectId(contractId),
+                    user_id: req.user._id,
+                    ...(cleanedFilters)
                 })
                 const result = {
                     message: 'Payments fetched successfully',

@@ -1,5 +1,5 @@
 import type { Request } from "express"
-import { Document, PopulatedDoc, Types } from "mongoose"
+import { Document, Types } from "mongoose"
 import { ContractDoc, UserDoc } from "src/DB/schema"
 
 

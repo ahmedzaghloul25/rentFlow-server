@@ -50,7 +50,7 @@ export class PropertyService {
             const activeContract = await this.contractRepo.findOneRecord({
                 property_id: property._id,
                 user_id: req.user._id,
-                is_terminated: { $exists: false },
+                is_terminated: false,
                 end_date: { $gte: new Date() },
                 actual_end_date: null
             })

@@ -1,8 +1,8 @@
 import { MongooseModule, Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { PaymentMethodEnum } from "common/types";
 import { HydratedDocument, Types } from "mongoose";
-import { ref } from "process";
 import { Contract } from "./contract.schema";
+import { User } from "./user.schema";
 
 @Schema({ timestamps: true })
 export class Payment {
@@ -12,6 +12,13 @@ export class Payment {
         ref: Contract.name
     })
     contract_id: Types.ObjectId
+
+    @Prop({
+        required: true,
+        type: Types.ObjectId,
+        ref: User.name
+    })
+    user_id: Types.ObjectId
 
     @Prop({
         required: true

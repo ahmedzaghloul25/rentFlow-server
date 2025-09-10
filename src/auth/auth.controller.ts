@@ -1,15 +1,16 @@
-import { Controller, Get, Post, Req, Res, UseGuards } from '@nestjs/common';
+import { Controller, Get, InternalServerErrorException, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
 import type { _Request, GoogleReq } from 'common/types';
 import type { Response } from 'express';
 import { ValidateToken } from 'common/guards';
-import { APP_CONSTANTS } from 'common/constants';
+import { generateCsrfToken } from 'config/csrf.config';
 
 
 @Controller('auth')
 export class AuthController {
-    constructor(private authService: AuthService) { }
+    constructor(private authService: AuthService,
+    ) { }
 
     @Get('signup')
     async googleSignup(@Req() req, @Res() res) {
@@ -31,11 +32,23 @@ export class AuthController {
     @UseGuards(AuthGuard('google'))
     async googleAuthRedirect(@Req() req: GoogleReq, @Res() res: Response) {
         if (req.user.authIntent === 'signup') {
-            return await this.authService.registerNewUser(req)
+            return await this.authService.registerNewUser(req, res)
         }
         if (req.user.authIntent === 'login') {
             return await this.authService.login(req, res)
         }
+    }
+
+    @Get('profile')
+    @UseGuards(ValidateToken)
+    getProfile(@Req() req: _Request, @Res({passthrough:true}) res: Response) {
+        try {
+            const csrfToken = generateCsrfToken(req, res)
+            return { user: req.user, csrfToken }
+        } catch (error) {
+            throw new InternalServerErrorException('ERROR_GETTING_PROFILE')
+        }
+
     }
 
     @Post('logout')

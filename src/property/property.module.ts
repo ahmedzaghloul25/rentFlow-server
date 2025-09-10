@@ -5,7 +5,6 @@ import { contractModule, propertyModule, userModule } from 'src/DB/schema';
 import { ContractRepo, PropertyRepo, UserRepo } from 'src/DB/repo';
 import { JwtToken } from 'common/services';
 import { JwtService } from '@nestjs/jwt';
-import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
   imports: [propertyModule, userModule, contractModule],

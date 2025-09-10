@@ -1,21 +1,21 @@
-import { IsAlpha, IsNumberString, MaxLength, MinLength } from "class-validator";
+import { IsNumberString, IsString, MaxLength, MinLength } from "class-validator";
 
 
 export class ClientDto{
 
-    @IsAlpha()
+    @IsString()
     @MinLength(3)
     @MaxLength(50)
     firstName: string
 
 
-    @IsAlpha()
+    @IsString()
     @MinLength(3)
     @MaxLength(50)
     middleName: string
 
 
-    @IsAlpha()
+    @IsString()
     @MinLength(3)
     @MaxLength(50)
     lastName: string
