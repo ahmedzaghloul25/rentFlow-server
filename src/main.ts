@@ -14,7 +14,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: WinstonLogger
   });
-  // const port = process.env.PORT ?? 3000;
+  const port = process.env.PORT ?? 3000;
   app.use(helmet());
   app.enableCors({
     origin: process.env.CLIENT_URL,
@@ -35,19 +35,8 @@ async function bootstrap() {
     forbidNonWhitelisted: true,
     transform: true,
   }));
-  await app.init();
-  return app
-  // await app.listen(port, () => {
-  //   console.log('server is running using port ', port);
-  // });
+  await app.listen(port, () => {
+    console.log('server is running using port ', port);
+  });
 }
-// bootstrap()
-
-let appInstance: any;
-
-export default async (req: any, res: any) => {
-  if (!appInstance) {
-    appInstance = await bootstrap();
-  }
-  return appInstance.getHttpAdapter().getInstance()(req, res);
-};
+bootstrap()
