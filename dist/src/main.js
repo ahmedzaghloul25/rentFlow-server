@@ -17,9 +17,10 @@ async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule, {
         logger: logger_1.WinstonLogger
     });
+    const port = process.env.PORT ?? 3000;
     app.use((0, helmet_1.default)());
     app.enableCors({
-        origin: constants_1.APP_CONSTANTS.CLIENT_URL,
+        origin: process.env.CLIENT_URL,
         credentials: true,
     });
     app.use((0, cookie_parser_1.default)(process.env.COOKIE_SECRET));
@@ -37,14 +38,9 @@ async function bootstrap() {
         forbidNonWhitelisted: true,
         transform: true,
     }));
-    await app.init();
-    return app;
+    await app.listen(port, () => {
+        console.log('server is running using port ', port);
+    });
 }
-let appInstance;
-exports.default = async (req, res) => {
-    if (!appInstance) {
-        appInstance = await bootstrap();
-    }
-    return appInstance.getHttpAdapter().getInstance()(req, res);
-};
+bootstrap();
 //# sourceMappingURL=main.js.map
