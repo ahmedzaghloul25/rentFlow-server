@@ -23,7 +23,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
-        uri: configService.get<string>('DB_ONLINE')
+        uri: configService.get<string>('DB_LOCAL')
       }),
       inject: [ConfigService]
     }),

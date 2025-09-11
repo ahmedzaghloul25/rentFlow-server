@@ -25,7 +25,7 @@ export class AuthService {
             if (!req.user.isVerified) throw new UnauthorizedException('USER_NOT_VERIFIED')
             const newUser = await this.userRepo.createNew(req.user)
             if (newUser) {
-                return res.redirect(`${APP_CONSTANTS.CLIENT_URL}/auth/login`)
+                return res.redirect(`${process.env.CLIENT_URL}/auth/login`)
             }
         } catch (error) {
             if (error.errorResponse.code === 11000) {
@@ -51,7 +51,7 @@ export class AuthService {
             const accessToken = await this.jwtToken.createToken(fetchedUser)
             await this.userRepo.updateOneRecord({ _id: fetchedUser._id }, { isLoggedIn: true })
             return res.cookie(APP_CONSTANTS.TOKEN_NAME, accessToken, APP_CONSTANTS.COOKIE_OPTIONS)
-                .redirect(`${APP_CONSTANTS.CLIENT_URL}/dashboard`);
+                .redirect(`${process.env.CLIENT_URL}/dashboard`);
         } catch (error) {
             if (error instanceof HttpException) throw error
             this.logger.error(`Failed to login for user ${req.user.email}`, error.stack, AuthService.name)

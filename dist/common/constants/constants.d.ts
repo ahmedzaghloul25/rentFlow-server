@@ -10,6 +10,5 @@ export declare const APP_CONSTANTS: {
     readonly JWT_EXPIRE: "1hr";
     readonly SESSION_EXPIRE: number;
     readonly CACHE_TTL: number;
-    readonly CLIENT_URL: "http://localhost:3001";
     readonly TIME_ZONE: "Africa/Cairo";
 };

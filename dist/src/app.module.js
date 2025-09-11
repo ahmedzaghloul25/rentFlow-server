@@ -35,7 +35,7 @@ exports.AppModule = AppModule = __decorate([
             mongoose_1.MongooseModule.forRootAsync({
                 imports: [config_1.ConfigModule],
                 useFactory: async (configService) => ({
-                    uri: configService.get('DB_ONLINE')
+                    uri: configService.get('DB_LOCAL')
                 }),
                 inject: [config_1.ConfigService]
             }),

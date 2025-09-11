@@ -30,7 +30,7 @@ let AuthService = AuthService_1 = class AuthService {
                 throw new common_1.UnauthorizedException('USER_NOT_VERIFIED');
             const newUser = await this.userRepo.createNew(req.user);
             if (newUser) {
-                return res.redirect(`${constants_1.APP_CONSTANTS.CLIENT_URL}/auth/login`);
+                return res.redirect(`${process.env.CLIENT_URL}/auth/login`);
             }
         }
         catch (error) {
@@ -45,14 +45,18 @@ let AuthService = AuthService_1 = class AuthService {
     }
     async login(req, res) {
         try {
+            console.log('user is logging');
             const { user } = req;
+            console.log('user data is', user);
             const fetchedUser = await this.userRepo.findOneRecord({ email: user.email });
             if (!fetchedUser)
                 throw new common_1.UnauthorizedException('EMAIL_NOT_REGISTERED');
             const accessToken = await this.jwtToken.createToken(fetchedUser);
-            await this.userRepo.updateOneRecord({ _id: fetchedUser._id }, { isLoggedIn: true });
+            console.log('access token is ', accessToken);
+            const result = await this.userRepo.updateOneRecord({ _id: fetchedUser._id }, { isLoggedIn: true });
+            console.log('result is ', result);
             return res.cookie(constants_1.APP_CONSTANTS.TOKEN_NAME, accessToken, constants_1.APP_CONSTANTS.COOKIE_OPTIONS)
-                .redirect(`${constants_1.APP_CONSTANTS.CLIENT_URL}/dashboard`);
+                .redirect(`${process.env.CLIENT_URL}/dashboard`);
         }
         catch (error) {
             if (error instanceof common_1.HttpException)
