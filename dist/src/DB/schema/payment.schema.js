@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.paymentModule = exports.paymentSchema = exports.Payment = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
-const types_1 = require("../../../common/types");
+const types_1 = require("../../../common/types/types");
 const mongoose_2 = require("mongoose");
 const contract_schema_1 = require("./contract.schema");
 const user_schema_1 = require("./user.schema");

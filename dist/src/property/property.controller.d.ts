@@ -1,5 +1,5 @@
 import { PropertyService } from './property.service';
-import type { _Request } from 'common/types';
+import type { _Request } from '../../common/types/types';
 import { AddNewProperty } from './DTO/propertyDto';
 import type { PropertyDoc } from 'src/DB/schema';
 export declare class PropertyController {

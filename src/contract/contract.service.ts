@@ -7,7 +7,7 @@ import {
     NotFoundException,
     UnauthorizedException
 } from '@nestjs/common';
-import { _Request } from 'common/types';
+import { _Request } from '../../common/types/types';
 import { ContractDoc, PropertyDoc } from 'src/DB/schema';
 import { Logger } from '@nestjs/common';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';

@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post, Query, Req, UseGuards } from '@nestjs/common';
 import { ClientService } from './client.service';
 import { ValidateToken } from 'common/guards';
-import type { _Request } from 'common/types';
+import type { _Request } from '../../common/types/types';
 import { ClientDto } from './DTO';
 import { ValidateClient } from 'common/pipes';
 import type { ClientDoc } from 'src/DB/schema';

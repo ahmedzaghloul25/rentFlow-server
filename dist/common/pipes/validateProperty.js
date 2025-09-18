@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ValidateProperty = void 0;
 const common_1 = require("@nestjs/common");
-const property_repo_1 = require("../../src/DB/repo/property.repo");
+const propertyRepo_1 = require("../../src/DB/repo/propertyRepo");
 let ValidateProperty = class ValidateProperty {
     propertyRepo;
     constructor(propertyRepo) {
@@ -29,6 +29,6 @@ let ValidateProperty = class ValidateProperty {
 exports.ValidateProperty = ValidateProperty;
 exports.ValidateProperty = ValidateProperty = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [property_repo_1.PropertyRepo])
+    __metadata("design:paramtypes", [propertyRepo_1.PropertyRepo])
 ], ValidateProperty);
 //# sourceMappingURL=validateProperty.js.map

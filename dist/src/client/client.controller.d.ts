@@ -1,5 +1,5 @@
 import { ClientService } from './client.service';
-import type { _Request } from 'common/types';
+import type { _Request } from '../../common/types/types';
 import { ClientDto } from './DTO';
 import type { ClientDoc } from 'src/DB/schema';
 export declare class ClientController {

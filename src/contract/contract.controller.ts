@@ -1,7 +1,7 @@
 import { Body, Controller, Get, HttpCode, Param, Post, Query, Req, UseGuards } from '@nestjs/common';
 import { ContractService } from './contract.service';
 import { ValidateToken } from 'common/guards';
-import type { _Request } from 'common/types';
+import type { _Request } from '../../common/types/types';
 import { ValidateProperty } from 'common/pipes';
 import type { PropertyDoc } from 'src/DB/schema';
 import { ContractQueryFilter, CreateNewContract } from './DTO';

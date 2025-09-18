@@ -1,7 +1,7 @@
 import { Transform, Type } from "class-transformer";
 import { IsBoolean, IsDate, IsEnum, IsMongoId, IsNotEmpty, IsNumber, IsOptional, Max, Min } from "class-validator";
 import { IsFutureDate } from "common/decorators";
-import { PaymentInterval } from "common/types";
+import { PaymentInterval } from "../../../common/types/types";
 import { Types } from "mongoose";
 
 

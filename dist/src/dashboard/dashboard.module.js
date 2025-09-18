@@ -13,9 +13,9 @@ const dashboard_service_1 = require("./dashboard.service");
 const schema_1 = require("../DB/schema");
 const jwt_1 = require("@nestjs/jwt");
 const services_1 = require("../../common/services");
-const payment_repo_1 = require("../DB/repo/payment.repo");
-const contract_repo_1 = require("../DB/repo/contract.repo");
-const user_repo_1 = require("../DB/repo/user.repo");
+const paymentRepo_1 = require("../DB/repo/paymentRepo");
+const contractRepo_1 = require("../DB/repo/contractRepo");
+const userRepo_1 = require("../DB/repo/userRepo");
 let DashboardModule = class DashboardModule {
 };
 exports.DashboardModule = DashboardModule;
@@ -23,7 +23,7 @@ exports.DashboardModule = DashboardModule = __decorate([
     (0, common_1.Module)({
         imports: [schema_1.paymentModule, schema_1.contractModule, schema_1.userModule],
         controllers: [dashboard_controller_1.DashboardController],
-        providers: [dashboard_service_1.DashboardService, payment_repo_1.PaymentRepo, contract_repo_1.ContractRepo, user_repo_1.UserRepo, jwt_1.JwtService, services_1.JwtToken, common_1.Logger]
+        providers: [dashboard_service_1.DashboardService, paymentRepo_1.PaymentRepo, contractRepo_1.ContractRepo, userRepo_1.UserRepo, jwt_1.JwtService, services_1.JwtToken, common_1.Logger]
     })
 ], DashboardModule);
 //# sourceMappingURL=dashboard.module.js.map

@@ -1,6 +1,6 @@
 import { Logger } from '@nestjs/common';
-import { UserRepo } from 'src/DB/repo/user.repo';
-import { _Request, GoogleReq } from 'common/types';
+import { UserRepo } from '../DB/repo/userRepo';
+import { _Request, GoogleReq } from '../../common/types/types';
 import { JwtToken } from 'common/services/jwtService';
 import { Response } from 'express';
 export declare class AuthService {

@@ -1,6 +1,6 @@
 import { Transform, Type } from "class-transformer";
 import { IsBoolean, IsDate, IsEnum, IsNotEmpty, IsNumber, IsOptional, Min } from "class-validator";
-import { PaymentMethodEnum } from "common/types";
+import { PaymentMethodEnum } from "../../../common/types/types";
 
 
 export class MarkPaymentPaidDto {

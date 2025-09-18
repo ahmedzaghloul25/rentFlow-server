@@ -17,8 +17,8 @@ exports.ContractService = void 0;
 const common_1 = require("@nestjs/common");
 const common_2 = require("@nestjs/common");
 const cache_manager_1 = require("@nestjs/cache-manager");
-const contract_repo_1 = require("../DB/repo/contract.repo");
-const payment_repo_1 = require("../DB/repo/payment.repo");
+const contractRepo_1 = require("../DB/repo/contractRepo");
+const paymentRepo_1 = require("../DB/repo/paymentRepo");
 let ContractService = ContractService_1 = class ContractService {
     contractRepo;
     paymentRepo;
@@ -180,8 +180,8 @@ exports.ContractService = ContractService;
 exports.ContractService = ContractService = ContractService_1 = __decorate([
     (0, common_1.Injectable)(),
     __param(3, (0, common_1.Inject)(cache_manager_1.CACHE_MANAGER)),
-    __metadata("design:paramtypes", [contract_repo_1.ContractRepo,
-        payment_repo_1.PaymentRepo,
+    __metadata("design:paramtypes", [contractRepo_1.ContractRepo,
+        paymentRepo_1.PaymentRepo,
         common_2.Logger, Object])
 ], ContractService);
 //# sourceMappingURL=contract.service.js.map

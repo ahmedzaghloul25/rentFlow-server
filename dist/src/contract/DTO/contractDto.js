@@ -13,7 +13,7 @@ exports.ContractQueryFilter = exports.CreateNewContract = void 0;
 const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
 const decorators_1 = require("../../../common/decorators");
-const types_1 = require("../../../common/types");
+const types_1 = require("../../../common/types/types");
 const mongoose_1 = require("mongoose");
 class CreateNewContract {
     end_date;

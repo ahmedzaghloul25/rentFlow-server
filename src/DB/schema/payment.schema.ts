@@ -1,5 +1,5 @@
 import { MongooseModule, Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { PaymentMethodEnum } from "common/types";
+import { PaymentMethodEnum } from "../../../common/types/types";
 import { HydratedDocument, Types } from "mongoose";
 import { Contract } from "./contract.schema";
 import { User } from "./user.schema";

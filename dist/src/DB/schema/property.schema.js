@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.propertyModule = exports.propertySchema = exports.Property = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
-const types_1 = require("../../../common/types");
+const types_1 = require("../../../common/types/types");
 const user_schema_1 = require("./user.schema");
 let Property = class Property {
     number;

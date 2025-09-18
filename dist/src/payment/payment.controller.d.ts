@@ -1,5 +1,5 @@
 import { PaymentService } from './payment.service';
-import type { _Request } from 'common/types';
+import type { _Request } from '../../common/types/types';
 import { MarkPaymentPaidDto, PaymentsQueryFilter } from './DTO';
 export declare class PaymentController {
     private paymentService;

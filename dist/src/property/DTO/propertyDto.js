@@ -13,7 +13,7 @@ exports.AddNewProperty = void 0;
 const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
 const isCityDistrictMatch_1 = require("../../../common/decorators/isCityDistrictMatch");
-const types_1 = require("../../../common/types");
+const types_1 = require("../../../common/types/types");
 class AddNewProperty {
     number;
     type;

@@ -1,7 +1,7 @@
 import { Controller, Get, InternalServerErrorException, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
-import type { _Request, GoogleReq } from 'common/types';
+import type { _Request, GoogleReq } from '../../common/types/types';
 import type { Response } from 'express';
 import { ValidateToken } from 'common/guards';
 import { randomBytes } from 'crypto'

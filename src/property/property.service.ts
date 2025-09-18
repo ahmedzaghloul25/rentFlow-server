@@ -1,6 +1,6 @@
 import { BadRequestException, HttpException, Inject, Injectable, InternalServerErrorException, Logger, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { AddNewProperty } from './DTO/propertyDto';
-import { _Request } from 'common/types';
+import { _Request } from '../../common/types/types';
 import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
 import { PropertyDoc } from 'src/DB/schema';
 import { PropertyRepo } from 'src/DB/repo/propertyRepo';

@@ -3,7 +3,7 @@ import { Property } from "./property.schema";
 import { HydratedDocument, Types } from "mongoose";
 import { User } from "./user.schema";
 import { Client } from "./client.schema";
-import { PaymentInterval } from "common/types";
+import { PaymentInterval } from "../../../common/types/types";
 
 
 @Schema({ timestamps: true })

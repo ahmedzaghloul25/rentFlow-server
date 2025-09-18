@@ -1,5 +1,5 @@
 import { BadRequestException, HttpException, Inject, Injectable, InternalServerErrorException, Logger, NotFoundException, UnauthorizedException } from '@nestjs/common';
-import { _Request } from 'common/types';
+import { _Request } from '../../common/types/types';
 import { ClientRepo } from 'src/DB/repo/clientRepo';
 import { ClientDto } from './DTO';
 import { Types } from 'mongoose';

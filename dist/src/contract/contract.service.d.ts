@@ -1,10 +1,10 @@
-import { _Request } from 'common/types';
+import { _Request } from '../../common/types/types';
 import { PropertyDoc } from 'src/DB/schema';
 import { Logger } from '@nestjs/common';
 import { CreateNewContract } from './DTO';
 import type { Cache } from 'cache-manager';
-import { ContractRepo } from 'src/DB/repo/contract.repo';
-import { PaymentRepo } from 'src/DB/repo/payment.repo';
+import { ContractRepo } from 'src/DB/repo/contractRepo';
+import { PaymentRepo } from 'src/DB/repo/paymentRepo';
 export declare class ContractService {
     private readonly contractRepo;
     private readonly paymentRepo;

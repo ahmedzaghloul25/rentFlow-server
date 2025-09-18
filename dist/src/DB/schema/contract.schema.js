@@ -15,7 +15,7 @@ const property_schema_1 = require("./property.schema");
 const mongoose_2 = require("mongoose");
 const user_schema_1 = require("./user.schema");
 const client_schema_1 = require("./client.schema");
-const types_1 = require("../../../common/types");
+const types_1 = require("../../../common/types/types");
 let Contract = class Contract {
     property_id;
     user_id;

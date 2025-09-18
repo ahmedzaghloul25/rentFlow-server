@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post, Query, Req, UseGuards } from '@nestjs/common';
 import { PropertyService } from './property.service';
 import { ValidateToken } from 'common/guards';
-import type { _Request } from 'common/types';
+import type { _Request } from '../../common/types/types';
 import { AddNewProperty } from './DTO/propertyDto';
 import { ValidateProperty } from 'common/pipes';
 import type { PropertyDoc } from 'src/DB/schema';

@@ -1,8 +1,8 @@
 import { Logger } from '@nestjs/common';
 import type { Cache } from 'cache-manager';
-import { _Request } from 'common/types';
-import { ContractRepo } from 'src/DB/repo/contract.repo';
-import { PaymentRepo } from 'src/DB/repo/payment.repo';
+import { _Request } from '../../common/types/types';
+import { ContractRepo } from 'src/DB/repo/contractRepo';
+import { PaymentRepo } from 'src/DB/repo/paymentRepo';
 export declare class DashboardService {
     private readonly contractRepo;
     private readonly paymentRepo;

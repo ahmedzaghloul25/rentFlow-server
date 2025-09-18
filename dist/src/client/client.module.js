@@ -13,9 +13,9 @@ const client_service_1 = require("./client.service");
 const schema_1 = require("../DB/schema");
 const services_1 = require("../../common/services");
 const jwt_1 = require("@nestjs/jwt");
-const client_repo_1 = require("../DB/repo/client.repo");
-const contract_repo_1 = require("../DB/repo/contract.repo");
-const user_repo_1 = require("../DB/repo/user.repo");
+const clientRepo_1 = require("../DB/repo/clientRepo");
+const contractRepo_1 = require("../DB/repo/contractRepo");
+const userRepo_1 = require("../DB/repo/userRepo");
 let ClientModule = class ClientModule {
 };
 exports.ClientModule = ClientModule;
@@ -23,7 +23,7 @@ exports.ClientModule = ClientModule = __decorate([
     (0, common_1.Module)({
         imports: [schema_1.clientModule, schema_1.userModule, schema_1.contractModule],
         controllers: [client_controller_1.ClientController],
-        providers: [client_service_1.ClientService, client_repo_1.ClientRepo, contract_repo_1.ContractRepo, user_repo_1.UserRepo, services_1.JwtToken, jwt_1.JwtService, common_1.Logger]
+        providers: [client_service_1.ClientService, clientRepo_1.ClientRepo, contractRepo_1.ContractRepo, userRepo_1.UserRepo, services_1.JwtToken, jwt_1.JwtService, common_1.Logger]
     })
 ], ClientModule);
 //# sourceMappingURL=client.module.js.map

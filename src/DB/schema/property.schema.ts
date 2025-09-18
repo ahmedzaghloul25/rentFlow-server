@@ -1,6 +1,6 @@
 import { MongooseModule, Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { HydratedDocument, Types } from "mongoose";
-import { EgyptianCity, PropertyType } from "common/types";
+import { EgyptianCity, PropertyType } from "../../../common/types/types";
 import { User } from "./user.schema";
 
 @Schema({ timestamps: true })

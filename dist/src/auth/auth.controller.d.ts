@@ -1,5 +1,5 @@
 import { AuthService } from './auth.service';
-import type { _Request, GoogleReq } from 'common/types';
+import type { _Request, GoogleReq } from '../../common/types/types';
 import type { Response } from 'express';
 export declare class AuthController {
     private authService;
