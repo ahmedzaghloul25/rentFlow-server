@@ -18,10 +18,10 @@ const client_module_1 = require("./client/client.module");
 const cache_manager_1 = require("@nestjs/cache-manager");
 const contract_module_1 = require("./contract/contract.module");
 const payment_module_1 = require("./payment/payment.module");
-const constants_1 = require("../common/constants");
+const constants_1 = require("../common/constants/constants");
 const dashboard_module_1 = require("./dashboard/dashboard.module");
 const core_1 = require("@nestjs/core");
-const guards_1 = require("../common/guards");
+const validateCsrf_1 = require("../common/guards/validateCsrf");
 const cron_module_1 = require("./cron/cron.module");
 let AppModule = class AppModule {
 };
@@ -50,7 +50,7 @@ exports.AppModule = AppModule = __decorate([
             cron_module_1.CronModule
         ],
         controllers: [app_controller_1.AppController],
-        providers: [app_service_1.AppService, { provide: core_1.APP_GUARD, useClass: guards_1.ValidateCsrf }],
+        providers: [app_service_1.AppService, { provide: core_1.APP_GUARD, useClass: validateCsrf_1.ValidateCsrf }],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map

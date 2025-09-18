@@ -7,7 +7,7 @@ export declare class AuthController {
     authGoogle(req: any): Promise<void>;
     googleAuthRedirect(req: GoogleReq, res: Response): Promise<void>;
     getProfile(req: _Request, res: Response): {
-        user: import("mongoose").Document<unknown, {}, import("../DB/schema").User, {}, {}> & import("../DB/schema").User & {
+        user: import("mongoose").Document<unknown, {}, import("../DB/schema/user.schema").User, {}, {}> & import("../DB/schema/user.schema").User & {
             _id: import("mongoose").Types.ObjectId;
         } & {
             __v: number;

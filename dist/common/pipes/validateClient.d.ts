@@ -3,7 +3,7 @@ import { ClientRepo } from "src/DB/repo/clientRepo";
 export declare class ValidateClient implements PipeTransform {
     private clientRepo;
     constructor(clientRepo: ClientRepo);
-    transform(value: string): Promise<import("mongoose").Document<unknown, {}, import("../../src/DB/schema").Client, {}, {}> & import("../../src/DB/schema").Client & {
+    transform(value: string): Promise<import("mongoose").Document<unknown, {}, import("../../src/DB/schema/client.schema").Client, {}, {}> & import("../../src/DB/schema/client.schema").Client & {
         _id: import("mongoose").Types.ObjectId;
     } & {
         __v: number;

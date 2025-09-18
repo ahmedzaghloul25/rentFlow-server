@@ -1,7 +1,7 @@
 import { ContractService } from './contract.service';
 import type { _Request } from '../../common/types/types';
-import type { PropertyDoc } from 'src/DB/schema';
-import { ContractQueryFilter, CreateNewContract } from './DTO';
+import type { PropertyDoc } from '../DB/schema/property.schema';
+import { ContractQueryFilter, CreateNewContract } from './DTO/contractDto';
 export declare class ContractController {
     private contractService;
     constructor(contractService: ContractService);

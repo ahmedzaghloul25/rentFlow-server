@@ -15,8 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PaymentController = void 0;
 const common_1 = require("@nestjs/common");
 const payment_service_1 = require("./payment.service");
-const guards_1 = require("../../common/guards");
-const DTO_1 = require("./DTO");
+const validateToken_1 = require("../../common/guards/validateToken");
+const paymentDto_1 = require("./DTO/paymentDto");
 let PaymentController = class PaymentController {
     paymentService;
     constructor(paymentService) {
@@ -36,7 +36,7 @@ __decorate([
     __param(1, (0, common_1.Req)()),
     __param(2, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object, DTO_1.MarkPaymentPaidDto]),
+    __metadata("design:paramtypes", [String, Object, paymentDto_1.MarkPaymentPaidDto]),
     __metadata("design:returntype", Promise)
 ], PaymentController.prototype, "markPaymentPaid", null);
 __decorate([
@@ -45,12 +45,12 @@ __decorate([
     __param(1, (0, common_1.Req)()),
     __param(2, (0, common_1.Query)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object, DTO_1.PaymentsQueryFilter]),
+    __metadata("design:paramtypes", [String, Object, paymentDto_1.PaymentsQueryFilter]),
     __metadata("design:returntype", Promise)
 ], PaymentController.prototype, "getContractPayments", null);
 exports.PaymentController = PaymentController = __decorate([
     (0, common_1.Controller)('payments'),
-    (0, common_1.UseGuards)(guards_1.ValidateToken),
+    (0, common_1.UseGuards)(validateToken_1.ValidateToken),
     __metadata("design:paramtypes", [payment_service_1.PaymentService])
 ], PaymentController);
 //# sourceMappingURL=payment.controller.js.map

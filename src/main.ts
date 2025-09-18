@@ -4,7 +4,7 @@ import { AppModule } from './app.module';
 import passport from 'passport'
 import cookieParser from 'cookie-parser'
 import { ValidationPipe } from '@nestjs/common';
-import { WinstonLogger } from 'common/logger';
+import { WinstonLogger } from '../common/logger/winston.config';
 import helmet from 'helmet';
 
 

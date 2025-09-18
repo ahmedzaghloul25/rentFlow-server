@@ -1,9 +1,11 @@
 import { Logger, Module } from '@nestjs/common';
 import { ClientController } from './client.controller';
 import { ClientService } from './client.service';
-import { clientModule, contractModule, userModule } from 'src/DB/schema';
+import { clientModule } from '../DB/schema/client.schema';
+import { userModule } from '../DB/schema/user.schema';
+import { contractModule } from 'src/DB/schema/contract.schema';
 
-import { JwtToken } from 'common/services';
+import { JwtToken } from '../../common/services/jwtService';
 import { JwtService } from '@nestjs/jwt';
 import { ClientRepo } from 'src/DB/repo/clientRepo';
 import { ContractRepo } from 'src/DB/repo/contractRepo';

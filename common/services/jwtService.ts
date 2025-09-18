@@ -1,8 +1,8 @@
 import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
-import { APP_CONSTANTS } from "common/constants";
+import { APP_CONSTANTS } from "../../common/constants/constants";
 import {JwtPayload } from "jsonwebtoken";
-import { UserDoc } from "src/DB/schema";
+import { UserDoc } from "../../src/DB/schema/user.schema";
 
 @Injectable()
 export class JwtToken {

@@ -16,9 +16,9 @@ exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
 const auth_service_1 = require("./auth.service");
 const passport_1 = require("@nestjs/passport");
-const guards_1 = require("../../common/guards");
+const validateToken_1 = require("../../common/guards/validateToken");
 const crypto_1 = require("crypto");
-const constants_1 = require("../../common/constants");
+const constants_1 = require("../../common/constants/constants");
 let AuthController = class AuthController {
     authService;
     constructor(authService) {
@@ -62,7 +62,7 @@ __decorate([
 ], AuthController.prototype, "googleAuthRedirect", null);
 __decorate([
     (0, common_1.Get)('profile'),
-    (0, common_1.UseGuards)(guards_1.ValidateToken),
+    (0, common_1.UseGuards)(validateToken_1.ValidateToken),
     __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Res)({ passthrough: true })),
     __metadata("design:type", Function),
@@ -71,7 +71,7 @@ __decorate([
 ], AuthController.prototype, "getProfile", null);
 __decorate([
     (0, common_1.Post)('logout'),
-    (0, common_1.UseGuards)(guards_1.ValidateToken),
+    (0, common_1.UseGuards)(validateToken_1.ValidateToken),
     __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),

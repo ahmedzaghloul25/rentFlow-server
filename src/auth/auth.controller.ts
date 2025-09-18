@@ -3,9 +3,9 @@ import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
 import type { _Request, GoogleReq } from '../../common/types/types';
 import type { Response } from 'express';
-import { ValidateToken } from 'common/guards';
+import { ValidateToken } from '../../common/guards/validateToken';
 import { randomBytes } from 'crypto'
-import { APP_CONSTANTS } from 'common/constants';
+import { APP_CONSTANTS } from '../../common/constants/constants';
 
 @Controller('auth')
 export class AuthController {

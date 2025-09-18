@@ -2,9 +2,9 @@ import { BadRequestException, HttpException, Inject, Injectable, InternalServerE
 import { AddNewProperty } from './DTO/propertyDto';
 import { _Request } from '../../common/types/types';
 import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
-import { PropertyDoc } from 'src/DB/schema';
-import { PropertyRepo } from 'src/DB/repo/propertyRepo';
-import { ContractRepo } from 'src/DB/repo/contractRepo';
+import { PropertyDoc } from '../DB/schema/property.schema';
+import { PropertyRepo } from '../DB/repo/propertyRepo';
+import { ContractRepo } from '../DB/repo/contractRepo';
 
 @Injectable()
 export class PropertyService {

@@ -1,5 +1,5 @@
 import { CanActivate, ExecutionContext, ForbiddenException, Injectable } from "@nestjs/common";
-import { APP_CONSTANTS } from "common/constants";
+import { APP_CONSTANTS } from "../constants/constants";
 
 @Injectable()
 export class ValidateCsrf implements CanActivate {

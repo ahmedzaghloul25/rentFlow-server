@@ -1,6 +1,7 @@
 import type { Request } from "express"
 import { Document, Types } from "mongoose"
-import { ContractDoc, UserDoc } from "src/DB/schema"
+import { UserDoc } from "../../src/DB/schema/user.schema"
+import { ContractDoc } from "../../src/DB/schema/contract.schema";
 
 
 export enum PaymentMethodEnum {

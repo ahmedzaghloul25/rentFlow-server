@@ -8,11 +8,11 @@ const app_module_1 = require("./app.module");
 const passport_1 = __importDefault(require("passport"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const common_1 = require("@nestjs/common");
-const logger_1 = require("../common/logger");
+const winston_config_1 = require("../common/logger/winston.config");
 const helmet_1 = __importDefault(require("helmet"));
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule, {
-        logger: logger_1.WinstonLogger
+        logger: winston_config_1.WinstonLogger
     });
     const port = process.env.PORT ?? 3000;
     app.use((0, helmet_1.default)());

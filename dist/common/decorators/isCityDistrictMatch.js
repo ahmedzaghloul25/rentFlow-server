@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.IsCityDistrictMatch = IsCityDistrictMatch;
 const common_1 = require("@nestjs/common");
 const class_validator_1 = require("class-validator");
-const maps_1 = require("../maps");
+const district_map_1 = require("../../common/maps/district.map");
 function IsCityDistrictMatch(validationOptions) {
     return function (object, propertyName) {
         (0, class_validator_1.registerDecorator)({
@@ -19,7 +19,7 @@ function IsCityDistrictMatch(validationOptions) {
                     }
                     const obj = validationArguments.object;
                     const city = obj.city;
-                    const relatedDistricts = maps_1.cityDistrictMap.get(city);
+                    const relatedDistricts = district_map_1.cityDistrictMap.get(city);
                     if (!city || !relatedDistricts) {
                         throw new common_1.BadRequestException("INVALID_CITY_VALUE");
                     }

@@ -8,13 +8,14 @@ import {
     UnauthorizedException
 } from '@nestjs/common';
 import { _Request } from '../../common/types/types';
-import { ContractDoc, PropertyDoc } from 'src/DB/schema';
+import { ContractDoc } from '../DB/schema/contract.schema';
+import { PropertyDoc } from '../DB/schema/property.schema';
 import { Logger } from '@nestjs/common';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
-import { CreateNewContract } from './DTO';
+import { CreateNewContract } from './DTO/contractDto';
 import type { Cache } from 'cache-manager';
-import { ContractRepo } from 'src/DB/repo/contractRepo';
-import { PaymentRepo } from 'src/DB/repo/paymentRepo';
+import { ContractRepo } from '../DB/repo/contractRepo';
+import { PaymentRepo } from '../DB/repo/paymentRepo';
 
 @Injectable()
 export class ContractService {

@@ -1,5 +1,0 @@
-export * from './client.schema';
-export * from './contract.schema';
-export * from './payment.schema';
-export * from './property.schema';
-export * from './user.schema';

@@ -12,7 +12,7 @@ const auth_controller_1 = require("./auth.controller");
 const auth_service_1 = require("./auth.service");
 const passport_1 = require("@nestjs/passport");
 const google_strategy_1 = require("./google.strategy");
-const schema_1 = require("../DB/schema");
+const user_schema_1 = require("../DB/schema/user.schema");
 const userRepo_1 = require("../DB/repo/userRepo");
 const jwtService_1 = require("../../common/services/jwtService");
 const jwt_1 = require("@nestjs/jwt");
@@ -21,7 +21,7 @@ let AuthModule = class AuthModule {
 exports.AuthModule = AuthModule;
 exports.AuthModule = AuthModule = __decorate([
     (0, common_1.Module)({
-        imports: [passport_1.PassportModule, schema_1.userModule],
+        imports: [passport_1.PassportModule, user_schema_1.userModule],
         controllers: [auth_controller_1.AuthController],
         providers: [auth_service_1.AuthService, google_strategy_1.GoogleStrategy, userRepo_1.UserRepo, jwt_1.JwtService, jwtService_1.JwtToken, common_1.Logger]
     })

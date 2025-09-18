@@ -15,9 +15,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ClientController = void 0;
 const common_1 = require("@nestjs/common");
 const client_service_1 = require("./client.service");
-const guards_1 = require("../../common/guards");
+const validateToken_1 = require("../../common/guards/validateToken");
 const DTO_1 = require("./DTO");
-const pipes_1 = require("../../common/pipes");
+const validateClient_1 = require("../../common/pipes/validateClient");
 let ClientController = class ClientController {
     clientService;
     constructor(clientService) {
@@ -48,7 +48,7 @@ __decorate([
 __decorate([
     (0, common_1.Delete)(':clientId'),
     __param(0, (0, common_1.Req)()),
-    __param(1, (0, common_1.Param)('clientId', pipes_1.ValidateClient)),
+    __param(1, (0, common_1.Param)('clientId', validateClient_1.ValidateClient)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
@@ -72,7 +72,7 @@ __decorate([
 ], ClientController.prototype, "getClientId", null);
 exports.ClientController = ClientController = __decorate([
     (0, common_1.Controller)('clients'),
-    (0, common_1.UseGuards)(guards_1.ValidateToken),
+    (0, common_1.UseGuards)(validateToken_1.ValidateToken),
     __metadata("design:paramtypes", [client_service_1.ClientService])
 ], ClientController);
 //# sourceMappingURL=client.controller.js.map

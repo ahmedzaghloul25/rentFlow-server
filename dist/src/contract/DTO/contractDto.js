@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ContractQueryFilter = exports.CreateNewContract = void 0;
 const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
-const decorators_1 = require("../../../common/decorators");
+const isFutureDate_1 = require("../../../common/decorators/isFutureDate");
 const types_1 = require("../../../common/types/types");
 const mongoose_1 = require("mongoose");
 class CreateNewContract {
@@ -29,7 +29,7 @@ __decorate([
     (0, class_validator_1.IsDate)(),
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_transformer_1.Type)(() => Date),
-    (0, decorators_1.IsFutureDate)(),
+    (0, isFutureDate_1.IsFutureDate)(),
     __metadata("design:type", Date)
 ], CreateNewContract.prototype, "end_date", void 0);
 __decorate([
@@ -80,7 +80,7 @@ __decorate([
     (0, class_validator_1.IsDate)(),
     (0, class_validator_1.IsOptional)(),
     (0, class_transformer_1.Type)(() => Date),
-    (0, decorators_1.IsFutureDate)(),
+    (0, isFutureDate_1.IsFutureDate)(),
     __metadata("design:type", Date)
 ], ContractQueryFilter.prototype, "end_date", void 0);
 __decorate([

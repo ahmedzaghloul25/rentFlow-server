@@ -1,8 +1,8 @@
 import { Body, Controller, Get, Param, Post, Query, Req, UseGuards } from '@nestjs/common';
 import { PaymentService } from './payment.service';
-import { ValidateToken } from 'common/guards';
+import { ValidateToken } from '../../common/guards/validateToken';
 import type { _Request } from '../../common/types/types';
-import { MarkPaymentPaidDto, PaymentsQueryFilter } from './DTO';
+import { MarkPaymentPaidDto, PaymentsQueryFilter } from './DTO/paymentDto';
 
 @Controller('payments')
 @UseGuards(ValidateToken)

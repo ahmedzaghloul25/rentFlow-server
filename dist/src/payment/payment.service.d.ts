@@ -1,7 +1,7 @@
 import { Logger } from '@nestjs/common';
 import { _Request } from '../../common/types/types';
-import { PaymentRepo } from 'src/DB/repo/paymentRepo';
-import { MarkPaymentPaidDto, PaymentsQueryFilter } from './DTO';
+import { PaymentRepo } from '../DB/repo/paymentRepo';
+import { MarkPaymentPaidDto, PaymentsQueryFilter } from './DTO/paymentDto';
 import { Types } from 'mongoose';
 import type { Cache } from 'cache-manager';
 export declare class PaymentService {
@@ -11,7 +11,7 @@ export declare class PaymentService {
     constructor(paymentRepo: PaymentRepo, logger: Logger, cache: Cache);
     markPaymentPaid(paymentId: string, req: _Request, body: MarkPaymentPaidDto): Promise<{
         message: string;
-        payment: (import("mongoose").Document<unknown, {}, import("../DB/schema").Payment, {}, {}> & import("../DB/schema").Payment & {
+        payment: (import("mongoose").Document<unknown, {}, import("../DB/schema/payment.schema").Payment, {}, {}> & import("../DB/schema/payment.schema").Payment & {
             _id: Types.ObjectId;
         } & {
             __v: number;

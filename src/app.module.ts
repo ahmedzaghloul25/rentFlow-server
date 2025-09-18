@@ -9,10 +9,10 @@ import { ClientModule } from './client/client.module';
 import { CacheModule } from '@nestjs/cache-manager';
 import { ContractModule } from './contract/contract.module';
 import { PaymentModule } from './payment/payment.module';
-import { APP_CONSTANTS } from 'common/constants';
+import { APP_CONSTANTS } from '../common/constants/constants';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { APP_GUARD } from '@nestjs/core';
-import { ValidateCsrf } from 'common/guards';
+import { ValidateCsrf } from '../common/guards/validateCsrf';
 import { CronModule } from './cron/cron.module';
 
 @Module({

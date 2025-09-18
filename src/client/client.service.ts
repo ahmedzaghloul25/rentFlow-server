@@ -4,7 +4,7 @@ import { ClientRepo } from 'src/DB/repo/clientRepo';
 import { ClientDto } from './DTO';
 import { Types } from 'mongoose';
 import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
-import { ClientDoc } from 'src/DB/schema';
+import { ClientDoc } from '../DB/schema/client.schema';
 import { ContractRepo } from 'src/DB/repo/contractRepo';
 
 @Injectable()

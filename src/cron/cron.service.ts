@@ -1,7 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { ContractRepo } from 'src/DB/repo/contractRepo';
-import { PaymentRepo } from 'src/DB/repo/paymentRepo';
-import { ContractDoc, PaymentDoc } from 'src/DB/schema';
+import { ContractRepo } from '../DB/repo/contractRepo';
+import { PaymentRepo } from '../DB/repo/paymentRepo';
+import { ContractDoc } from '../DB/schema/contract.schema';
+import { PaymentDoc } from '../DB/schema/payment.schema';
 
 @Injectable()
 export class CronService {

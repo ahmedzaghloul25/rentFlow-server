@@ -3,8 +3,8 @@ import { HttpException, Inject, Injectable, InternalServerErrorException, Logger
 import type { Cache } from 'cache-manager';
 import { _Request } from '../../common/types/types';
 import { Types } from 'mongoose';
-import { ContractRepo } from 'src/DB/repo/contractRepo';
-import { PaymentRepo } from 'src/DB/repo/paymentRepo';
+import { ContractRepo } from '../DB/repo/contractRepo';
+import { PaymentRepo } from '../DB/repo/paymentRepo';
 
 @Injectable()
 export class DashboardService {

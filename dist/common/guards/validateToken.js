@@ -11,8 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ValidateToken = void 0;
 const common_1 = require("@nestjs/common");
-const constants_1 = require("../constants");
-const services_1 = require("../services");
+const constants_1 = require("../constants/constants");
+const jwtService_1 = require("../services/jwtService");
 const userRepo_1 = require("../../src/DB/repo/userRepo");
 let ValidateToken = class ValidateToken {
     jewToken;
@@ -39,7 +39,7 @@ let ValidateToken = class ValidateToken {
 exports.ValidateToken = ValidateToken;
 exports.ValidateToken = ValidateToken = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [services_1.JwtToken,
+    __metadata("design:paramtypes", [jwtService_1.JwtToken,
         userRepo_1.UserRepo])
 ], ValidateToken);
 //# sourceMappingURL=validateToken.js.map

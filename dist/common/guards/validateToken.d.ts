@@ -1,5 +1,5 @@
 import { CanActivate, ExecutionContext } from "@nestjs/common";
-import { JwtToken } from "common/services";
+import { JwtToken } from "../services/jwtService";
 import { UserRepo } from "src/DB/repo/userRepo";
 export declare class ValidateToken implements CanActivate {
     private jewToken;

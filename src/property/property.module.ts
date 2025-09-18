@@ -1,12 +1,14 @@
 import { Logger, Module } from '@nestjs/common';
 import { PropertyController } from './property.controller';
 import { PropertyService } from './property.service';
-import { contractModule, propertyModule, userModule } from 'src/DB/schema';
-import { JwtToken } from 'common/services';
+import { contractModule } from '../DB/schema/contract.schema';
+import { propertyModule } from '../DB/schema/property.schema';
+import { userModule } from '../DB/schema/user.schema';
+import { JwtToken } from '../../common/services/jwtService';
 import { JwtService } from '@nestjs/jwt';
-import { PropertyRepo } from 'src/DB/repo/propertyRepo';
-import { ContractRepo } from 'src/DB/repo/contractRepo';
-import { UserRepo } from 'src/DB/repo/userRepo';
+import { PropertyRepo } from '../DB/repo/propertyRepo';
+import { ContractRepo } from '../DB/repo/contractRepo';
+import { UserRepo } from '../DB/repo/userRepo';
 
 @Module({
   imports: [propertyModule, userModule, contractModule],

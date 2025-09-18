@@ -1,6 +1,6 @@
 import { Controller, Get, Req, UseGuards } from '@nestjs/common';
 import { DashboardService } from './dashboard.service';
-import { ValidateToken } from 'common/guards';
+import { ValidateToken } from '../../common/guards/validateToken';
 import type { _Request } from '../../common/types/types';
 
 @Controller('dashboard')

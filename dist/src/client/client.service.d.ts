@@ -4,7 +4,7 @@ import { ClientRepo } from 'src/DB/repo/clientRepo';
 import { ClientDto } from './DTO';
 import { Types } from 'mongoose';
 import { Cache } from '@nestjs/cache-manager';
-import { ClientDoc } from 'src/DB/schema';
+import { ClientDoc } from '../DB/schema/client.schema';
 import { ContractRepo } from 'src/DB/repo/contractRepo';
 export declare class ClientService {
     private readonly clientRepo;
@@ -14,11 +14,11 @@ export declare class ClientService {
     constructor(clientRepo: ClientRepo, contractRepo: ContractRepo, cache: Cache, logger: Logger);
     addNewClient(req: _Request, body: ClientDto): Promise<{
         message: string;
-        client: (import("mongoose").Document<unknown, {}, import("src/DB/schema").Client, {}, {}> & import("src/DB/schema").Client & {
+        client: (import("mongoose").Document<unknown, {}, import("../DB/schema/client.schema").Client, {}, {}> & import("../DB/schema/client.schema").Client & {
             _id: Types.ObjectId;
         } & {
             __v: number;
-        }) | (import("mongoose").Document<unknown, {}, import("src/DB/schema").Client, {}, {}> & import("src/DB/schema").Client & {
+        }) | (import("mongoose").Document<unknown, {}, import("../DB/schema/client.schema").Client, {}, {}> & import("../DB/schema/client.schema").Client & {
             _id: Types.ObjectId;
         } & {
             __v: number;
@@ -26,7 +26,7 @@ export declare class ClientService {
     } | undefined>;
     deleteClient(req: _Request, client: ClientDoc): Promise<{
         message: string;
-        client: import("mongoose").Document<unknown, {}, import("src/DB/schema").Client, {}, {}> & import("src/DB/schema").Client & {
+        client: import("mongoose").Document<unknown, {}, import("../DB/schema/client.schema").Client, {}, {}> & import("../DB/schema/client.schema").Client & {
             _id: Types.ObjectId;
         } & {
             __v: number;

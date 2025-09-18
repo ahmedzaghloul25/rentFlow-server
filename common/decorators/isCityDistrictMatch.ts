@@ -1,6 +1,6 @@
 import { BadRequestException } from "@nestjs/common";
 import { registerDecorator, ValidationOptions, ValidationArguments } from "class-validator";
-import { cityDistrictMap } from "common/maps";
+import { cityDistrictMap } from "../../common/maps/district.map";
 
 /**
  * decorator to validate the entered district is matched with selected city

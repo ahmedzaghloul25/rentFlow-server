@@ -3,7 +3,7 @@ import { PropertyRepo } from "src/DB/repo/propertyRepo";
 export declare class ValidateProperty implements PipeTransform {
     private propertyRepo;
     constructor(propertyRepo: PropertyRepo);
-    transform(value: string): Promise<import("mongoose").Document<unknown, {}, import("../../src/DB/schema").Property, {}, {}> & import("../../src/DB/schema").Property & {
+    transform(value: string): Promise<import("mongoose").Document<unknown, {}, import("../../src/DB/schema/property.schema").Property, {}, {}> & import("../../src/DB/schema/property.schema").Property & {
         _id: import("mongoose").Types.ObjectId;
     } & {
         __v: number;

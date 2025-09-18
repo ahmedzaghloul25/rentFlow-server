@@ -1,10 +1,10 @@
 import { Body, Controller, Delete, Get, Param, Post, Query, Req, UseGuards } from '@nestjs/common';
 import { ClientService } from './client.service';
-import { ValidateToken } from 'common/guards';
+import { ValidateToken } from '../../common/guards/validateToken';
 import type { _Request } from '../../common/types/types';
 import { ClientDto } from './DTO';
-import { ValidateClient } from 'common/pipes';
-import type { ClientDoc } from 'src/DB/schema';
+import { ValidateClient } from '../../common/pipes/validateClient';
+import type { ClientDoc } from '../DB/schema/client.schema';
 
 @Controller('clients')
 @UseGuards(ValidateToken)

@@ -1,6 +1,6 @@
 import { Transform } from "class-transformer";
 import { IsEnum, IsOptional, IsString, MaxLength, MinLength } from "class-validator";
-import { IsCityDistrictMatch } from "common/decorators/isCityDistrictMatch";
+import { IsCityDistrictMatch } from "../../../common/decorators/isCityDistrictMatch";
 import { EgyptianCity, PropertyType } from "../../../common/types/types";
 
 export class AddNewProperty {

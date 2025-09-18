@@ -1,12 +1,14 @@
 import { Logger, Module } from '@nestjs/common';
 import { DashboardController } from './dashboard.controller';
 import { DashboardService } from './dashboard.service';
-import { contractModule, paymentModule, userModule } from 'src/DB/schema';
+import { contractModule } from '../DB/schema/contract.schema';
+import { paymentModule } from '../DB/schema/payment.schema';
+import { userModule } from '../DB/schema/user.schema';
 import { JwtService } from '@nestjs/jwt';
-import { JwtToken } from 'common/services';
-import { PaymentRepo } from 'src/DB/repo/paymentRepo';
-import { ContractRepo } from 'src/DB/repo/contractRepo';
-import { UserRepo } from 'src/DB/repo/userRepo';
+import { JwtToken } from '../../common/services/jwtService';
+import { PaymentRepo } from '../DB/repo/paymentRepo';
+import { ContractRepo } from '../DB/repo/contractRepo';
+import { UserRepo } from '../DB/repo/userRepo';
 
 @Module({
   imports: [paymentModule, contractModule, userModule],

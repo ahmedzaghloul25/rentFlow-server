@@ -15,9 +15,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PropertyController = void 0;
 const common_1 = require("@nestjs/common");
 const property_service_1 = require("./property.service");
-const guards_1 = require("../../common/guards");
+const validateToken_1 = require("../../common/guards/validateToken");
 const propertyDto_1 = require("./DTO/propertyDto");
-const pipes_1 = require("../../common/pipes");
+const validateProperty_1 = require("../../common/pipes/validateProperty");
 let PropertyController = class PropertyController {
     propertyService;
     constructor(propertyService) {
@@ -47,7 +47,7 @@ __decorate([
 ], PropertyController.prototype, "addNewProperty", null);
 __decorate([
     (0, common_1.Delete)(':propertyId'),
-    __param(0, (0, common_1.Param)('propertyId', pipes_1.ValidateProperty)),
+    __param(0, (0, common_1.Param)('propertyId', validateProperty_1.ValidateProperty)),
     __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object]),
@@ -72,7 +72,7 @@ __decorate([
 ], PropertyController.prototype, "getProperty", null);
 exports.PropertyController = PropertyController = __decorate([
     (0, common_1.Controller)('properties'),
-    (0, common_1.UseGuards)(guards_1.ValidateToken),
+    (0, common_1.UseGuards)(validateToken_1.ValidateToken),
     __metadata("design:paramtypes", [property_service_1.PropertyService])
 ], PropertyController);
 //# sourceMappingURL=property.controller.js.map

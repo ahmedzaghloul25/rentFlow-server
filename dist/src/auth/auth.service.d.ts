@@ -1,7 +1,7 @@
 import { Logger } from '@nestjs/common';
 import { UserRepo } from '../DB/repo/userRepo';
 import { _Request, GoogleReq } from '../../common/types/types';
-import { JwtToken } from 'common/services/jwtService';
+import { JwtToken } from '../../common/services/jwtService';
 import { Response } from 'express';
 export declare class AuthService {
     private readonly userRepo;

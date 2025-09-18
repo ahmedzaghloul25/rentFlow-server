@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { DbRepo } from "./dbRepo";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
-import { User, UserDoc } from "../schema";
+import { User, UserDoc } from "../schema/user.schema";
 
 
 @Injectable()

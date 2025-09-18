@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DashboardController = void 0;
 const common_1 = require("@nestjs/common");
 const dashboard_service_1 = require("./dashboard.service");
-const guards_1 = require("../../common/guards");
+const validateToken_1 = require("../../common/guards/validateToken");
 let DashboardController = class DashboardController {
     dashboardService;
     constructor(dashboardService) {
@@ -45,7 +45,7 @@ __decorate([
 ], DashboardController.prototype, "getFinancialData", null);
 exports.DashboardController = DashboardController = __decorate([
     (0, common_1.Controller)('dashboard'),
-    (0, common_1.UseGuards)(guards_1.ValidateToken),
+    (0, common_1.UseGuards)(validateToken_1.ValidateToken),
     __metadata("design:paramtypes", [dashboard_service_1.DashboardService])
 ], DashboardController);
 //# sourceMappingURL=dashboard.controller.js.map

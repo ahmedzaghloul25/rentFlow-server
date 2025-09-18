@@ -15,9 +15,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ContractController = void 0;
 const common_1 = require("@nestjs/common");
 const contract_service_1 = require("./contract.service");
-const guards_1 = require("../../common/guards");
-const pipes_1 = require("../../common/pipes");
-const DTO_1 = require("./DTO");
+const validateToken_1 = require("../../common/guards/validateToken");
+const validateProperty_1 = require("../../common/pipes/validateProperty");
+const contractDto_1 = require("./DTO/contractDto");
 let ContractController = class ContractController {
     contractService;
     constructor(contractService) {
@@ -42,10 +42,10 @@ __decorate([
     (0, common_1.Post)(':propertyId'),
     (0, common_1.HttpCode)(201),
     __param(0, (0, common_1.Req)()),
-    __param(1, (0, common_1.Param)('propertyId', pipes_1.ValidateProperty)),
+    __param(1, (0, common_1.Param)('propertyId', validateProperty_1.ValidateProperty)),
     __param(2, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Object, DTO_1.CreateNewContract]),
+    __metadata("design:paramtypes", [Object, Object, contractDto_1.CreateNewContract]),
     __metadata("design:returntype", Promise)
 ], ContractController.prototype, "createContract", null);
 __decorate([
@@ -63,7 +63,7 @@ __decorate([
     __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Query)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, DTO_1.ContractQueryFilter]),
+    __metadata("design:paramtypes", [Object, contractDto_1.ContractQueryFilter]),
     __metadata("design:returntype", Promise)
 ], ContractController.prototype, "getAllContracts", null);
 __decorate([
@@ -77,7 +77,7 @@ __decorate([
 ], ContractController.prototype, "getContract", null);
 exports.ContractController = ContractController = __decorate([
     (0, common_1.Controller)('contracts'),
-    (0, common_1.UseGuards)(guards_1.ValidateToken),
+    (0, common_1.UseGuards)(validateToken_1.ValidateToken),
     __metadata("design:paramtypes", [contract_service_1.ContractService])
 ], ContractController);
 //# sourceMappingURL=contract.controller.js.map

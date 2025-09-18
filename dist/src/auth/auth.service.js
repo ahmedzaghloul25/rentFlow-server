@@ -14,7 +14,7 @@ exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
 const userRepo_1 = require("../DB/repo/userRepo");
 const jwtService_1 = require("../../common/services/jwtService");
-const constants_1 = require("../../common/constants");
+const constants_1 = require("../../common/constants/constants");
 let AuthService = AuthService_1 = class AuthService {
     userRepo;
     jwtToken;
