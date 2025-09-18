@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException, PipeTransform, UnauthorizedException } from "@nestjs/common";
-import { PropertyRepo } from "src/DB/repo/property.repo";
+import { PropertyRepo } from "src/DB/repo/propertyRepo";
 
 
 @Injectable()

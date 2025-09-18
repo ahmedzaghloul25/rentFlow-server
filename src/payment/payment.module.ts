@@ -4,8 +4,8 @@ import { PaymentController } from './payment.controller';
 import { paymentModule, userModule } from 'src/DB/schema';
 import { JwtToken } from 'common/services';
 import { JwtService } from '@nestjs/jwt';
-import { PaymentRepo } from 'src/DB/repo/payment.repo';
-import { UserRepo } from 'src/DB/repo/user.repo';
+import { PaymentRepo } from 'src/DB/repo/paymentRepo';
+import { UserRepo } from 'src/DB/repo/userRepo';
 
 @Module({
   imports: [paymentModule, userModule],

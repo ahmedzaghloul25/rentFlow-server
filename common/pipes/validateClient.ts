@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException, PipeTransform, UnauthorizedException } from "@nestjs/common";
-import { ClientRepo } from "src/DB/repo/client.repo";
+import { ClientRepo } from "src/DB/repo/clientRepo";
 
 
 @Injectable()

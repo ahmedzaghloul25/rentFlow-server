@@ -3,8 +3,8 @@ import { AddNewProperty } from './DTO/propertyDto';
 import { _Request } from 'common/types';
 import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
 import { PropertyDoc } from 'src/DB/schema';
-import { PropertyRepo } from 'src/DB/repo/property.repo';
-import { ContractRepo } from 'src/DB/repo/contract.repo';
+import { PropertyRepo } from 'src/DB/repo/propertyRepo';
+import { ContractRepo } from 'src/DB/repo/contractRepo';
 
 @Injectable()
 export class PropertyService {

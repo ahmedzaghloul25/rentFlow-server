@@ -5,9 +5,9 @@ import { clientModule, contractModule, userModule } from 'src/DB/schema';
 
 import { JwtToken } from 'common/services';
 import { JwtService } from '@nestjs/jwt';
-import { ClientRepo } from 'src/DB/repo/client.repo';
-import { ContractRepo } from 'src/DB/repo/contract.repo';
-import { UserRepo } from 'src/DB/repo/user.repo';
+import { ClientRepo } from 'src/DB/repo/clientRepo';
+import { ContractRepo } from 'src/DB/repo/contractRepo';
+import { UserRepo } from 'src/DB/repo/userRepo';
 
 @Module({
   imports: [clientModule, userModule, contractModule],

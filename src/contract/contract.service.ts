@@ -13,8 +13,8 @@ import { Logger } from '@nestjs/common';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { CreateNewContract } from './DTO';
 import type { Cache } from 'cache-manager';
-import { ContractRepo } from 'src/DB/repo/contract.repo';
-import { PaymentRepo } from 'src/DB/repo/payment.repo';
+import { ContractRepo } from 'src/DB/repo/contractRepo';
+import { PaymentRepo } from 'src/DB/repo/paymentRepo';
 
 @Injectable()
 export class ContractService {

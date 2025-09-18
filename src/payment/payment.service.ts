@@ -1,6 +1,6 @@
 import { BadRequestException, HttpException, Inject, Injectable, InternalServerErrorException, Logger, NotFoundException } from '@nestjs/common';
 import { _Request, PopulatedPayment } from 'common/types';
-import { PaymentRepo } from 'src/DB/repo/payment.repo';
+import { PaymentRepo } from 'src/DB/repo/paymentRepo';
 import { MarkPaymentPaidDto, PaymentsQueryFilter } from './DTO';
 import { Types } from 'mongoose';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
