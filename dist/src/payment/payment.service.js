@@ -15,7 +15,7 @@ var PaymentService_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PaymentService = void 0;
 const common_1 = require("@nestjs/common");
-const repo_1 = require("../DB/repo");
+const payment_repo_1 = require("../DB/repo/payment.repo");
 const mongoose_1 = require("mongoose");
 const cache_manager_1 = require("@nestjs/cache-manager");
 let PaymentService = PaymentService_1 = class PaymentService {
@@ -103,7 +103,7 @@ exports.PaymentService = PaymentService;
 exports.PaymentService = PaymentService = PaymentService_1 = __decorate([
     (0, common_1.Injectable)(),
     __param(2, (0, common_1.Inject)(cache_manager_1.CACHE_MANAGER)),
-    __metadata("design:paramtypes", [repo_1.PaymentRepo,
+    __metadata("design:paramtypes", [payment_repo_1.PaymentRepo,
         common_1.Logger, Object])
 ], PaymentService);
 //# sourceMappingURL=payment.service.js.map

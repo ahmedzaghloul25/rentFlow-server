@@ -17,7 +17,8 @@ exports.DashboardService = void 0;
 const cache_manager_1 = require("@nestjs/cache-manager");
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("mongoose");
-const repo_1 = require("../DB/repo");
+const contract_repo_1 = require("../DB/repo/contract.repo");
+const payment_repo_1 = require("../DB/repo/payment.repo");
 let DashboardService = DashboardService_1 = class DashboardService {
     contractRepo;
     paymentRepo;
@@ -124,7 +125,7 @@ exports.DashboardService = DashboardService;
 exports.DashboardService = DashboardService = DashboardService_1 = __decorate([
     (0, common_1.Injectable)(),
     __param(2, (0, common_1.Inject)(cache_manager_1.CACHE_MANAGER)),
-    __metadata("design:paramtypes", [repo_1.ContractRepo,
-        repo_1.PaymentRepo, Object, common_1.Logger])
+    __metadata("design:paramtypes", [contract_repo_1.ContractRepo,
+        payment_repo_1.PaymentRepo, Object, common_1.Logger])
 ], DashboardService);
 //# sourceMappingURL=dashboard.service.js.map

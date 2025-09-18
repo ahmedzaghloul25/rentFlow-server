@@ -4,7 +4,7 @@ import { AuthService } from './auth.service';
 import { PassportModule } from '@nestjs/passport';
 import { GoogleStrategy } from './google.strategy';
 import { userModule } from 'src/DB/schema';
-import { UserRepo } from 'src/DB/repo';
+import { UserRepo } from 'src/DB/repo/user.repo';
 import { JwtToken } from 'common/services/jwtService';
 import { JwtService } from '@nestjs/jwt';
 

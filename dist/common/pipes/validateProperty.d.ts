@@ -1,5 +1,5 @@
 import { PipeTransform } from "@nestjs/common";
-import { PropertyRepo } from "src/DB/repo";
+import { PropertyRepo } from "src/DB/repo/property.repo";
 export declare class ValidateProperty implements PipeTransform {
     private propertyRepo;
     constructor(propertyRepo: PropertyRepo);

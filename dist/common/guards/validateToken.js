@@ -13,7 +13,7 @@ exports.ValidateToken = void 0;
 const common_1 = require("@nestjs/common");
 const constants_1 = require("../constants");
 const services_1 = require("../services");
-const repo_1 = require("../../src/DB/repo");
+const user_repo_1 = require("../../src/DB/repo/user.repo");
 let ValidateToken = class ValidateToken {
     jewToken;
     userRepo;
@@ -40,6 +40,6 @@ exports.ValidateToken = ValidateToken;
 exports.ValidateToken = ValidateToken = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [services_1.JwtToken,
-        repo_1.UserRepo])
+        user_repo_1.UserRepo])
 ], ValidateToken);
 //# sourceMappingURL=validateToken.js.map

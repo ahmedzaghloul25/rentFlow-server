@@ -12,7 +12,7 @@ var AuthService_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
-const repo_1 = require("../DB/repo");
+const user_repo_1 = require("../DB/repo/user.repo");
 const jwtService_1 = require("../../common/services/jwtService");
 const constants_1 = require("../../common/constants");
 let AuthService = AuthService_1 = class AuthService {
@@ -73,7 +73,7 @@ let AuthService = AuthService_1 = class AuthService {
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = AuthService_1 = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [repo_1.UserRepo,
+    __metadata("design:paramtypes", [user_repo_1.UserRepo,
         jwtService_1.JwtToken,
         common_1.Logger])
 ], AuthService);

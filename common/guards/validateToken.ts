@@ -1,7 +1,7 @@
 import { BadRequestException, CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
 import { APP_CONSTANTS } from "common/constants";
 import { JwtToken } from "common/services";
-import { UserRepo } from "src/DB/repo";
+import { UserRepo } from "src/DB/repo/user.repo";
 
 
 @Injectable()

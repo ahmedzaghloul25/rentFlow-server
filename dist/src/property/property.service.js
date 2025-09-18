@@ -15,8 +15,9 @@ var PropertyService_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PropertyService = void 0;
 const common_1 = require("@nestjs/common");
-const repo_1 = require("../DB/repo");
 const cache_manager_1 = require("@nestjs/cache-manager");
+const property_repo_1 = require("../DB/repo/property.repo");
+const contract_repo_1 = require("../DB/repo/contract.repo");
 let PropertyService = PropertyService_1 = class PropertyService {
     propertyRepo;
     cache;
@@ -125,9 +126,9 @@ exports.PropertyService = PropertyService;
 exports.PropertyService = PropertyService = PropertyService_1 = __decorate([
     (0, common_1.Injectable)(),
     __param(1, (0, common_1.Inject)(cache_manager_1.CACHE_MANAGER)),
-    __metadata("design:paramtypes", [repo_1.PropertyRepo,
+    __metadata("design:paramtypes", [property_repo_1.PropertyRepo,
         cache_manager_1.Cache,
-        repo_1.ContractRepo,
+        contract_repo_1.ContractRepo,
         common_1.Logger])
 ], PropertyService);
 //# sourceMappingURL=property.service.js.map

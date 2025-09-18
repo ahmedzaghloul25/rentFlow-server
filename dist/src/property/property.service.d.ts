@@ -1,9 +1,10 @@
 import { Logger } from '@nestjs/common';
 import { AddNewProperty } from './DTO/propertyDto';
 import { _Request } from 'common/types';
-import { ContractRepo, PropertyRepo } from 'src/DB/repo';
 import { Cache } from '@nestjs/cache-manager';
 import { PropertyDoc } from 'src/DB/schema';
+import { PropertyRepo } from 'src/DB/repo/property.repo';
+import { ContractRepo } from 'src/DB/repo/contract.repo';
 export declare class PropertyService {
     private readonly propertyRepo;
     private cache;

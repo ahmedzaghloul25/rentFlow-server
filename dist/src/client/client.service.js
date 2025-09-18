@@ -15,8 +15,9 @@ var ClientService_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ClientService = void 0;
 const common_1 = require("@nestjs/common");
-const repo_1 = require("../DB/repo");
+const client_repo_1 = require("../DB/repo/client.repo");
 const cache_manager_1 = require("@nestjs/cache-manager");
+const contract_repo_1 = require("../DB/repo/contract.repo");
 let ClientService = ClientService_1 = class ClientService {
     clientRepo;
     contractRepo;
@@ -121,8 +122,8 @@ exports.ClientService = ClientService;
 exports.ClientService = ClientService = ClientService_1 = __decorate([
     (0, common_1.Injectable)(),
     __param(2, (0, common_1.Inject)(cache_manager_1.CACHE_MANAGER)),
-    __metadata("design:paramtypes", [repo_1.ClientRepo,
-        repo_1.ContractRepo,
+    __metadata("design:paramtypes", [client_repo_1.ClientRepo,
+        contract_repo_1.ContractRepo,
         cache_manager_1.Cache,
         common_1.Logger])
 ], ClientService);

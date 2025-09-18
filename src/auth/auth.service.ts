@@ -1,5 +1,5 @@
 import { HttpException, Injectable, InternalServerErrorException, Logger, NotFoundException } from '@nestjs/common';
-import { UserRepo } from 'src/DB/repo';
+import { UserRepo } from 'src/DB/repo/user.repo';
 import { _Request, GoogleReq } from 'common/types';
 import { JwtToken } from 'common/services/jwtService';
 import { Response } from 'express';

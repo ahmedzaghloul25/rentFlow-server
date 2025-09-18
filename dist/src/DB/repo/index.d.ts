@@ -1,5 +1,0 @@
-export * from './client.repo';
-export * from './contract.repo';
-export * from './payment.repo';
-export * from './property.repo';
-export * from './user.repo';

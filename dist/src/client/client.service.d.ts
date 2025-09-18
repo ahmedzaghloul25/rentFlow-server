@@ -1,10 +1,11 @@
 import { Logger } from '@nestjs/common';
 import { _Request } from 'common/types';
-import { ClientRepo, ContractRepo } from 'src/DB/repo';
+import { ClientRepo } from 'src/DB/repo/client.repo';
 import { ClientDto } from './DTO';
 import { Types } from 'mongoose';
 import { Cache } from '@nestjs/cache-manager';
 import { ClientDoc } from 'src/DB/schema';
+import { ContractRepo } from 'src/DB/repo/contract.repo';
 export declare class ClientService {
     private readonly clientRepo;
     private readonly contractRepo;

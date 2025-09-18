@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ValidateClient = void 0;
 const common_1 = require("@nestjs/common");
-const repo_1 = require("../../src/DB/repo");
+const client_repo_1 = require("../../src/DB/repo/client.repo");
 let ValidateClient = class ValidateClient {
     clientRepo;
     constructor(clientRepo) {
@@ -29,6 +29,6 @@ let ValidateClient = class ValidateClient {
 exports.ValidateClient = ValidateClient;
 exports.ValidateClient = ValidateClient = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [repo_1.ClientRepo])
+    __metadata("design:paramtypes", [client_repo_1.ClientRepo])
 ], ValidateClient);
 //# sourceMappingURL=validateClient.js.map

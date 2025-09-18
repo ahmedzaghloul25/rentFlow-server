@@ -1,6 +1,6 @@
 import { Logger } from '@nestjs/common';
 import { _Request } from 'common/types';
-import { PaymentRepo } from 'src/DB/repo';
+import { PaymentRepo } from 'src/DB/repo/payment.repo';
 import { MarkPaymentPaidDto, PaymentsQueryFilter } from './DTO';
 import { Types } from 'mongoose';
 import type { Cache } from 'cache-manager';

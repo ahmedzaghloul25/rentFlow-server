@@ -1,5 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { ContractRepo, PaymentRepo } from 'src/DB/repo';
+import { ContractRepo } from 'src/DB/repo/contract.repo';
+import { PaymentRepo } from 'src/DB/repo/payment.repo';
 import { ContractDoc, PaymentDoc } from 'src/DB/schema';
 
 @Injectable()

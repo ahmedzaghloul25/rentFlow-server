@@ -1,8 +1,9 @@
 import { Logger, Module } from '@nestjs/common';
 import { CronService } from './cron.service';
 import { CronController } from './cron.controller';
-import { ContractRepo, PaymentRepo } from 'src/DB/repo';
+import { ContractRepo } from 'src/DB/repo/contract.repo';
 import { contractModule, paymentModule } from 'src/DB/schema';
+import { PaymentRepo } from 'src/DB/repo/payment.repo';
 
 @Module({
   imports:[paymentModule, contractModule],
