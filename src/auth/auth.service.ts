@@ -1,9 +1,10 @@
-import { ConflictException, HttpException, Injectable, InternalServerErrorException, Logger, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { HttpException, Injectable, InternalServerErrorException, Logger, NotFoundException } from '@nestjs/common';
 import { UserRepo } from 'src/DB/repo';
 import { _Request, GoogleReq } from 'common/types';
 import { JwtToken } from 'common/services/jwtService';
 import { Response } from 'express';
 import { APP_CONSTANTS } from 'common/constants';
+import { UserDoc } from 'src/DB/schema';
 
 
 @Injectable()
@@ -14,46 +15,26 @@ export class AuthService {
         private logger: Logger
 
     ) { }
+    //=========================== googleAuth ====================================
     /**
-     * Register a new user
-     * @param req - express request containing user information 
-     * @returns object containing success boolean, message and user created
-     */
-    //====================== registerNewUser ===============================
-    async registerNewUser(req: GoogleReq, res: Response) {
-        try {
-            if (!req.user.isVerified) throw new UnauthorizedException('USER_NOT_VERIFIED')
-            const newUser = await this.userRepo.createNew(req.user)
-            if (newUser) {
-                return res.redirect(`${process.env.CLIENT_URL}/auth/login`)
-            }
-        } catch (error) {
-            if (error.errorResponse.code === 11000) {
-                throw new ConflictException('EMAIL_ALREADY_REGISTERED')
-            }
-            if (error instanceof HttpException) {
-                throw error
-            }
-            throw new InternalServerErrorException('ERROR_REGISTERING_USER')
-        }
-    }
-    //=========================== login ====================================
-    /**
-     * user login
+     * user googleAuth
      * @param req - express request containing user information  
      * @returns accessToken in case user registered already
      */
-    async login(req: GoogleReq, res: Response) {
+    async googleAuth(req: GoogleReq, res: Response) {
         try {
+            let _user : UserDoc | null = null
             const { user } = req
-            const fetchedUser = await this.userRepo.findOneRecord({ email: user.email })
-            if (!fetchedUser) throw new UnauthorizedException('EMAIL_NOT_REGISTERED')
-            const accessToken = await this.jwtToken.createToken(fetchedUser)
-            await this.userRepo.updateOneRecord({ _id: fetchedUser._id }, { isLoggedIn: true })
-            return res.cookie(APP_CONSTANTS.TOKEN_NAME, accessToken, APP_CONSTANTS.COOKIE_OPTIONS)
+            _user = await this.userRepo.findOneRecord({ email: user.email })
+            if (!_user) {
+                _user = await this.userRepo.createNew(req.user) as UserDoc
+                this.logger.log(`New user registered ${_user._id}`, AuthService.name)
+            }
+            const accessToken = await this.jwtToken.createToken(_user)
+            await this.userRepo.updateOneRecord({ _id: _user._id }, { isLoggedIn: true })
+            return res.cookie(APP_CONSTANTS.AUTH_TOKEN_NAME, accessToken, APP_CONSTANTS.COOKIE_OPTIONS_AUTH)
                 .redirect(`${process.env.CLIENT_URL}/dashboard`);
         } catch (error) {
-            if (error instanceof HttpException) throw error
             this.logger.error(`Failed to login for user ${req.user.email}`, error.stack, AuthService.name)
             throw new InternalServerErrorException('FAILED_TO_LOGIN')
         }
@@ -71,11 +52,16 @@ export class AuthService {
             if (!result.modifiedCount) {
                 throw new NotFoundException('USER_NOT_FOUND')
             }
-            res.clearCookie(APP_CONSTANTS.TOKEN_NAME, {
-                httpOnly: APP_CONSTANTS.COOKIE_OPTIONS.httpOnly,
-                sameSite: APP_CONSTANTS.COOKIE_OPTIONS.sameSite,
-                secure: APP_CONSTANTS.COOKIE_OPTIONS.secure,
-                signed: APP_CONSTANTS.COOKIE_OPTIONS.signed
+            res.clearCookie(APP_CONSTANTS.AUTH_TOKEN_NAME, {
+                httpOnly: APP_CONSTANTS.COOKIE_OPTIONS_AUTH.httpOnly,
+                sameSite: APP_CONSTANTS.COOKIE_OPTIONS_AUTH.sameSite,
+                secure: APP_CONSTANTS.COOKIE_OPTIONS_AUTH.secure,
+                signed: APP_CONSTANTS.COOKIE_OPTIONS_AUTH.signed
+            })
+            res.clearCookie(APP_CONSTANTS.CSRF_TOKEN_NAME, {
+                httpOnly: APP_CONSTANTS.COOKIE_OPTIONS_CSRF.httpOnly,
+                sameSite: APP_CONSTANTS.COOKIE_OPTIONS_CSRF.sameSite,
+                secure: APP_CONSTANTS.COOKIE_OPTIONS_CSRF.secure,
             })
             return res.status(200).json({ message: 'logged out successfully' })
         } catch (error) {

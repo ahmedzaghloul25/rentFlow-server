@@ -12,7 +12,7 @@ export class ValidateToken implements CanActivate {
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
         const request = context.switchToHttp().getRequest()
-        const token = request.signedCookies[APP_CONSTANTS.TOKEN_NAME]
+        const token = request.signedCookies[APP_CONSTANTS.AUTH_TOKEN_NAME]
         if (!token) {
             throw new BadRequestException('TOKEN_NOT_FOUND')
         }

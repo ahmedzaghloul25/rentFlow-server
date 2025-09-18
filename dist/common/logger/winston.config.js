@@ -47,29 +47,6 @@ exports.WinstonLogger = nest_winston_1.WinstonModule.createLogger({
         new winston.transports.Console({
             format: process.env.MODE === 'DEV' ? consoleFormat : logFormat,
         }),
-        new winston.transports.DailyRotateFile({
-            filename: 'logs/app-%DATE%.log',
-            datePattern: 'YYYY-MM-DD',
-            maxFiles: '14d',
-            maxSize: '20m',
-            format: logFormat,
-        }),
-        new winston.transports.DailyRotateFile({
-            filename: 'logs/error-%DATE%.log',
-            datePattern: 'YYYY-MM-DD',
-            level: 'error',
-            maxFiles: '30d',
-            maxSize: '20m',
-            format: logFormat,
-        }),
-        new winston.transports.DailyRotateFile({
-            filename: 'logs/warn-%DATE%.log',
-            datePattern: 'YYYY-MM-DD',
-            level: 'warn',
-            maxFiles: '30d',
-            maxSize: '20m',
-            format: logFormat,
-        }),
     ],
 });
 //# sourceMappingURL=winston.config.js.map

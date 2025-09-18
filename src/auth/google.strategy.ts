@@ -22,16 +22,12 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     profile: any,
   ): Promise<any> {
     const { name, emails, photos } = profile;
-    const authIntent = req.session.intent
-    req.session.intent = null 
     const user = {
       email: emails[0].value,
       isVerified: emails[0].verified,
       firstName: name.givenName,
       lastName: name.familyName,
       picture: photos[0].value,
-      authIntent
-      // accessToken,
     };
     return user;
   }

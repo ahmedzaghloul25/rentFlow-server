@@ -23,7 +23,7 @@ let ValidateToken = class ValidateToken {
     }
     async canActivate(context) {
         const request = context.switchToHttp().getRequest();
-        const token = request.signedCookies[constants_1.APP_CONSTANTS.TOKEN_NAME];
+        const token = request.signedCookies[constants_1.APP_CONSTANTS.AUTH_TOKEN_NAME];
         if (!token) {
             throw new common_1.BadRequestException('TOKEN_NOT_FOUND');
         }

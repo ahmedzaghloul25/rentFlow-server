@@ -4,25 +4,13 @@ import { AuthGuard } from '@nestjs/passport';
 import type { _Request, GoogleReq } from 'common/types';
 import type { Response } from 'express';
 import { ValidateToken } from 'common/guards';
-import { generateCsrfToken } from 'config/csrf.config';
-
+import { randomBytes } from 'crypto'
+import { APP_CONSTANTS } from 'common/constants';
 
 @Controller('auth')
 export class AuthController {
     constructor(private authService: AuthService,
     ) { }
-
-    @Get('signup')
-    async googleSignup(@Req() req, @Res() res) {
-        req.session.intent = 'signup'
-        res.redirect('/auth/google')
-    }
-
-    @Get('login')
-    async googleLogin(@Req() req, @Res() res) {
-        req.session.intent = 'login'
-        res.redirect('/auth/google')
-    }
 
     @Get('google')
     @UseGuards(AuthGuard('google'))
@@ -31,20 +19,16 @@ export class AuthController {
     @Get('google-redirect')
     @UseGuards(AuthGuard('google'))
     async googleAuthRedirect(@Req() req: GoogleReq, @Res() res: Response) {
-        if (req.user.authIntent === 'signup') {
-            return await this.authService.registerNewUser(req, res)
-        }
-        if (req.user.authIntent === 'login') {
-            return await this.authService.login(req, res)
-        }
+        return await this.authService.googleAuth(req, res)
     }
 
     @Get('profile')
     @UseGuards(ValidateToken)
-    getProfile(@Req() req: _Request, @Res({passthrough:true}) res: Response) {
+    getProfile(@Req() req: _Request, @Res({ passthrough: true }) res: Response) {
         try {
-            const csrfToken = generateCsrfToken(req, res)
-            return { user: req.user, csrfToken }
+            const csrfToken = randomBytes(100).toString('hex')
+            res.cookie(APP_CONSTANTS.CSRF_TOKEN_NAME, csrfToken, APP_CONSTANTS.COOKIE_OPTIONS_CSRF)
+            return { user: req.user }
         } catch (error) {
             throw new InternalServerErrorException('ERROR_GETTING_PROFILE')
         }

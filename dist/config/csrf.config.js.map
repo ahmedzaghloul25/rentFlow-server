@@ -1,1 +1,0 @@
-{"version":3,"file":"csrf.config.js","sourceRoot":"","sources":["../../config/csrf.config.ts"],"names":[],"mappings":";;;;AAAA,yCAAuC;AAIvC,MAAM,iBAAiB,GAAG;IACxB,SAAS,EAAE,CAAC,GAAY,EAAE,EAAE,CAAC,GAAG,CAAC,MAAgB;IACjD,oBAAoB,EAAE,CAAC,GAAY,EAAE,EAAE;QACrC,OAAO,GAAG,CAAC,SAAS,CAAC;IACvB,CAAC;CACF,CAAA;AACY,KAGT,IAAA,sBAAU,EAAC,iBAAiB,CAAC,EAF/B,yBAAiB,yBACjB,4BAAoB,2BACY"}

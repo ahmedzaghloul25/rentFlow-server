@@ -25,15 +25,12 @@ let GoogleStrategy = class GoogleStrategy extends (0, passport_1.PassportStrateg
     }
     async validate(req, accessToken, refreshToken, profile) {
         const { name, emails, photos } = profile;
-        const authIntent = req.session.intent;
-        req.session.intent = null;
         const user = {
             email: emails[0].value,
             isVerified: emails[0].verified,
             firstName: name.givenName,
             lastName: name.familyName,
             picture: photos[0].value,
-            authIntent
         };
         return user;
     }

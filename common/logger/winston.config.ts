@@ -19,38 +19,8 @@ const consoleFormat = winston.format.combine(
 
 export const WinstonLogger = WinstonModule.createLogger({
     transports: [
-      // Console transport for development
       new winston.transports.Console({
         format: process.env.MODE === 'DEV' ? consoleFormat : logFormat,
-      }),
-      
-      // All logs file
-      new winston.transports.DailyRotateFile({
-        filename: 'logs/app-%DATE%.log',
-        datePattern: 'YYYY-MM-DD',
-        maxFiles: '14d',
-        maxSize: '20m',
-        format: logFormat,
-      }),
-      
-      // Error logs file
-      new winston.transports.DailyRotateFile({
-        filename: 'logs/error-%DATE%.log',
-        datePattern: 'YYYY-MM-DD',
-        level: 'error',
-        maxFiles: '30d',
-        maxSize: '20m',
-        format: logFormat,
-      }),
-      
-      // Info logs file  
-      new winston.transports.DailyRotateFile({
-        filename: 'logs/warn-%DATE%.log',
-        datePattern: 'YYYY-MM-DD',
-        level: 'warn',
-        maxFiles: '30d',
-        maxSize: '20m',
-        format: logFormat,
       }),
     ],
   });

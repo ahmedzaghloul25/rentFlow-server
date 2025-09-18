@@ -41,17 +41,14 @@ export class ClientService {
      */
     async deleteClient(req: _Request, client: ClientDoc) {
         try {
-            if (!req.user._id.equals(client.user_id)) {
-                console.log('not equal');
-                
+            if (!req.user._id.equals(client.user_id)) {                
                 throw new UnauthorizedException('UNAUTHORIZED_ACTION')
             }
             const activeContract = await this.contractRepo.findOneRecord({
-                client_id: client._id,
-                is_terminated: { $exists: false },
+                client_id: client._id.toHexString(),
+                is_terminated: false,
                 end_date: { $gte: new Date() },
-                actual_end_date: null
-            })
+            })            
             if (activeContract) throw new UnauthorizedException('ACTIVE_CONTRACT_FOUND')
             const result = await this.clientRepo.findOneRecordAndUpdate({
                 _id: client._id,

@@ -17,11 +17,12 @@ const property_module_1 = require("./property/property.module");
 const client_module_1 = require("./client/client.module");
 const cache_manager_1 = require("@nestjs/cache-manager");
 const contract_module_1 = require("./contract/contract.module");
-const schedule_1 = require("@nestjs/schedule");
-const services_1 = require("../common/services");
 const payment_module_1 = require("./payment/payment.module");
 const constants_1 = require("../common/constants");
 const dashboard_module_1 = require("./dashboard/dashboard.module");
+const core_1 = require("@nestjs/core");
+const guards_1 = require("../common/guards");
+const cron_module_1 = require("./cron/cron.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -35,21 +36,21 @@ exports.AppModule = AppModule = __decorate([
             mongoose_1.MongooseModule.forRootAsync({
                 imports: [config_1.ConfigModule],
                 useFactory: async (configService) => ({
-                    uri: configService.get('DB_LOCAL')
+                    uri: configService.get('DB_ONLINE')
                 }),
                 inject: [config_1.ConfigService]
             }),
             cache_manager_1.CacheModule.register({ ttl: constants_1.APP_CONSTANTS.CACHE_TTL, isGlobal: true }),
-            schedule_1.ScheduleModule.forRoot(),
             auth_module_1.AuthModule,
             property_module_1.PropertyModule,
             client_module_1.ClientModule,
             contract_module_1.ContractModule,
             payment_module_1.PaymentModule,
-            dashboard_module_1.DashboardModule
+            dashboard_module_1.DashboardModule,
+            cron_module_1.CronModule
         ],
         controllers: [app_controller_1.AppController],
-        providers: [app_service_1.AppService, services_1.Schedulers],
+        providers: [app_service_1.AppService, { provide: core_1.APP_GUARD, useClass: guards_1.ValidateCsrf }],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map

@@ -24,43 +24,21 @@ let AuthService = AuthService_1 = class AuthService {
         this.jwtToken = jwtToken;
         this.logger = logger;
     }
-    async registerNewUser(req, res) {
+    async googleAuth(req, res) {
         try {
-            if (!req.user.isVerified)
-                throw new common_1.UnauthorizedException('USER_NOT_VERIFIED');
-            const newUser = await this.userRepo.createNew(req.user);
-            if (newUser) {
-                return res.redirect(`${process.env.CLIENT_URL}/auth/login`);
-            }
-        }
-        catch (error) {
-            if (error.errorResponse.code === 11000) {
-                throw new common_1.ConflictException('EMAIL_ALREADY_REGISTERED');
-            }
-            if (error instanceof common_1.HttpException) {
-                throw error;
-            }
-            throw new common_1.InternalServerErrorException('ERROR_REGISTERING_USER');
-        }
-    }
-    async login(req, res) {
-        try {
-            console.log('user is logging');
+            let _user = null;
             const { user } = req;
-            console.log('user data is', user);
-            const fetchedUser = await this.userRepo.findOneRecord({ email: user.email });
-            if (!fetchedUser)
-                throw new common_1.UnauthorizedException('EMAIL_NOT_REGISTERED');
-            const accessToken = await this.jwtToken.createToken(fetchedUser);
-            console.log('access token is ', accessToken);
-            const result = await this.userRepo.updateOneRecord({ _id: fetchedUser._id }, { isLoggedIn: true });
-            console.log('result is ', result);
-            return res.cookie(constants_1.APP_CONSTANTS.TOKEN_NAME, accessToken, constants_1.APP_CONSTANTS.COOKIE_OPTIONS)
+            _user = await this.userRepo.findOneRecord({ email: user.email });
+            if (!_user) {
+                _user = await this.userRepo.createNew(req.user);
+                this.logger.log(`New user registered ${_user._id}`, AuthService_1.name);
+            }
+            const accessToken = await this.jwtToken.createToken(_user);
+            await this.userRepo.updateOneRecord({ _id: _user._id }, { isLoggedIn: true });
+            return res.cookie(constants_1.APP_CONSTANTS.AUTH_TOKEN_NAME, accessToken, constants_1.APP_CONSTANTS.COOKIE_OPTIONS_AUTH)
                 .redirect(`${process.env.CLIENT_URL}/dashboard`);
         }
         catch (error) {
-            if (error instanceof common_1.HttpException)
-                throw error;
             this.logger.error(`Failed to login for user ${req.user.email}`, error.stack, AuthService_1.name);
             throw new common_1.InternalServerErrorException('FAILED_TO_LOGIN');
         }
@@ -71,11 +49,16 @@ let AuthService = AuthService_1 = class AuthService {
             if (!result.modifiedCount) {
                 throw new common_1.NotFoundException('USER_NOT_FOUND');
             }
-            res.clearCookie(constants_1.APP_CONSTANTS.TOKEN_NAME, {
-                httpOnly: constants_1.APP_CONSTANTS.COOKIE_OPTIONS.httpOnly,
-                sameSite: constants_1.APP_CONSTANTS.COOKIE_OPTIONS.sameSite,
-                secure: constants_1.APP_CONSTANTS.COOKIE_OPTIONS.secure,
-                signed: constants_1.APP_CONSTANTS.COOKIE_OPTIONS.signed
+            res.clearCookie(constants_1.APP_CONSTANTS.AUTH_TOKEN_NAME, {
+                httpOnly: constants_1.APP_CONSTANTS.COOKIE_OPTIONS_AUTH.httpOnly,
+                sameSite: constants_1.APP_CONSTANTS.COOKIE_OPTIONS_AUTH.sameSite,
+                secure: constants_1.APP_CONSTANTS.COOKIE_OPTIONS_AUTH.secure,
+                signed: constants_1.APP_CONSTANTS.COOKIE_OPTIONS_AUTH.signed
+            });
+            res.clearCookie(constants_1.APP_CONSTANTS.CSRF_TOKEN_NAME, {
+                httpOnly: constants_1.APP_CONSTANTS.COOKIE_OPTIONS_CSRF.httpOnly,
+                sameSite: constants_1.APP_CONSTANTS.COOKIE_OPTIONS_CSRF.sameSite,
+                secure: constants_1.APP_CONSTANTS.COOKIE_OPTIONS_CSRF.secure,
             });
             return res.status(200).json({ message: 'logged out successfully' });
         }

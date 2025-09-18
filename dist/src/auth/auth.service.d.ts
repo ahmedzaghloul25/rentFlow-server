@@ -8,7 +8,6 @@ export declare class AuthService {
     private readonly jwtToken;
     private logger;
     constructor(userRepo: UserRepo, jwtToken: JwtToken, logger: Logger);
-    registerNewUser(req: GoogleReq, res: Response): Promise<void>;
-    login(req: GoogleReq, res: Response): Promise<void>;
+    googleAuth(req: GoogleReq, res: Response): Promise<void>;
     logout(req: _Request, res: Response): Promise<Response<any, Record<string, any>>>;
 }

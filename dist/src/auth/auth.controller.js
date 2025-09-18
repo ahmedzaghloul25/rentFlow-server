@@ -17,33 +17,22 @@ const common_1 = require("@nestjs/common");
 const auth_service_1 = require("./auth.service");
 const passport_1 = require("@nestjs/passport");
 const guards_1 = require("../../common/guards");
-const csrf_config_1 = require("../../config/csrf.config");
+const crypto_1 = require("crypto");
+const constants_1 = require("../../common/constants");
 let AuthController = class AuthController {
     authService;
     constructor(authService) {
         this.authService = authService;
     }
-    async googleSignup(req, res) {
-        req.session.intent = 'signup';
-        res.redirect('/auth/google');
-    }
-    async googleLogin(req, res) {
-        req.session.intent = 'login';
-        res.redirect('/auth/google');
-    }
     async authGoogle(req) { }
     async googleAuthRedirect(req, res) {
-        if (req.user.authIntent === 'signup') {
-            return await this.authService.registerNewUser(req, res);
-        }
-        if (req.user.authIntent === 'login') {
-            return await this.authService.login(req, res);
-        }
+        return await this.authService.googleAuth(req, res);
     }
     getProfile(req, res) {
         try {
-            const csrfToken = (0, csrf_config_1.generateCsrfToken)(req, res);
-            return { user: req.user, csrfToken };
+            const csrfToken = (0, crypto_1.randomBytes)(100).toString('hex');
+            res.cookie(constants_1.APP_CONSTANTS.CSRF_TOKEN_NAME, csrfToken, constants_1.APP_CONSTANTS.COOKIE_OPTIONS_CSRF);
+            return { user: req.user };
         }
         catch (error) {
             throw new common_1.InternalServerErrorException('ERROR_GETTING_PROFILE');
@@ -54,22 +43,6 @@ let AuthController = class AuthController {
     }
 };
 exports.AuthController = AuthController;
-__decorate([
-    (0, common_1.Get)('signup'),
-    __param(0, (0, common_1.Req)()),
-    __param(1, (0, common_1.Res)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Object]),
-    __metadata("design:returntype", Promise)
-], AuthController.prototype, "googleSignup", null);
-__decorate([
-    (0, common_1.Get)('login'),
-    __param(0, (0, common_1.Req)()),
-    __param(1, (0, common_1.Res)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Object]),
-    __metadata("design:returntype", Promise)
-], AuthController.prototype, "googleLogin", null);
 __decorate([
     (0, common_1.Get)('google'),
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)('google')),

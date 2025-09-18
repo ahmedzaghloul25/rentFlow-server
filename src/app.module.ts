@@ -8,11 +8,12 @@ import { PropertyModule } from './property/property.module';
 import { ClientModule } from './client/client.module';
 import { CacheModule } from '@nestjs/cache-manager';
 import { ContractModule } from './contract/contract.module';
-import { ScheduleModule } from '@nestjs/schedule';
-import { Schedulers } from 'common/services';
 import { PaymentModule } from './payment/payment.module';
 import { APP_CONSTANTS } from 'common/constants';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { APP_GUARD } from '@nestjs/core';
+import { ValidateCsrf } from 'common/guards';
+import { CronModule } from './cron/cron.module';
 
 @Module({
   imports: [
@@ -23,20 +24,20 @@ import { DashboardModule } from './dashboard/dashboard.module';
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
-        uri: configService.get<string>('DB_LOCAL')
+        uri: configService.get<string>('DB_ONLINE')
       }),
       inject: [ConfigService]
     }),
     CacheModule.register({ ttl: APP_CONSTANTS.CACHE_TTL, isGlobal: true }),
-    ScheduleModule.forRoot(),
     AuthModule,
     PropertyModule,
     ClientModule,
     ContractModule,
     PaymentModule,
-    DashboardModule
+    DashboardModule,
+    CronModule
   ],
   controllers: [AppController],
-  providers: [AppService, Schedulers],
+  providers: [AppService, { provide: APP_GUARD, useClass: ValidateCsrf }],
 })
 export class AppModule { }
