@@ -1,11 +1,11 @@
 import { BadRequestException, HttpException, Inject, Injectable, InternalServerErrorException, Logger, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { _Request } from '../../common/types/types';
-import { ClientRepo } from 'src/DB/repo/clientRepo';
+import { ClientRepo } from '../DB/repo/clientRepo';
 import { ClientDto } from './DTO';
 import { Types } from 'mongoose';
 import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
 import { ClientDoc } from '../DB/schema/client.schema';
-import { ContractRepo } from 'src/DB/repo/contractRepo';
+import { ContractRepo } from '../DB/repo/contractRepo';
 
 @Injectable()
 export class ClientService {
