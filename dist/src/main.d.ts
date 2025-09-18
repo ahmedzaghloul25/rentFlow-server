@@ -1,1 +1,1 @@
-export {};
+import 'tsconfig-paths/register';
