@@ -19,7 +19,7 @@
     },
     {
         "path":"/cron/create-payments",
-        "schedule": "* * * * *"
+        "schedule": "0 6 * * *"
     }
   ]
 }
