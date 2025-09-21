@@ -15,8 +15,19 @@ async function bootstrap() {
   const port = process.env.PORT ?? 3000;
   app.use(helmet());
   app.enableCors({
-    origin: process.env.CLIENT_URL, 
+    origin: process.env.CLIENT_URL,
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: [
+      'Origin',
+      'X-Requested-With',
+      'Content-Type',
+      'Accept',
+      'Authorization',
+      'Cookie',
+      'Set-Cookie'
+    ],
+    exposedHeaders: ['Set-Cookie'],
   });
   app.use(cookieParser(process.env.COOKIE_SECRET as string));
   app.use(passport.initialize());

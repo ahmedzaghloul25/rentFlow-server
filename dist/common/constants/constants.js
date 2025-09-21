@@ -7,17 +7,19 @@ exports.APP_CONSTANTS = {
     COOKIE_OPTIONS_AUTH: {
         maxAge: 1 * 60 * 60 * 1000,
         httpOnly: true,
-        sameSite: process.env.NODE_ENV !== "production" ? "lax" : "strict",
-        secure: process.env.MODE === "production",
+        sameSite: process.env.NODE_ENV !== "production" ? "lax" : "none",
+        secure: process.env.NODE_ENV === "production",
         signed: true,
-        path: '/'
+        path: '/',
+        domain: undefined
     },
     COOKIE_OPTIONS_CSRF: {
         maxAge: 1 * 60 * 60 * 1000,
         httpOnly: false,
-        sameSite: process.env.NODE_ENV !== "production" ? "lax" : "strict",
-        secure: process.env.MODE === "production",
-        path: '/'
+        sameSite: process.env.NODE_ENV !== "production" ? "lax" : "none",
+        secure: process.env.NODE_ENV === "production",
+        path: '/',
+        domain: undefined
     },
     JWT_EXPIRE: '1hr',
     SESSION_EXPIRE: 1 * 60 * 60 * 1000,

@@ -19,6 +19,17 @@ async function bootstrap() {
     app.enableCors({
         origin: process.env.CLIENT_URL,
         credentials: true,
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+        allowedHeaders: [
+            'Origin',
+            'X-Requested-With',
+            'Content-Type',
+            'Accept',
+            'Authorization',
+            'Cookie',
+            'Set-Cookie'
+        ],
+        exposedHeaders: ['Set-Cookie'],
     });
     app.use((0, cookie_parser_1.default)(process.env.COOKIE_SECRET));
     app.use(passport_1.default.initialize());
