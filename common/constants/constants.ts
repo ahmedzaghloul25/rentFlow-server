@@ -6,19 +6,19 @@ export const APP_CONSTANTS = {
     COOKIE_OPTIONS_AUTH: {
         maxAge: 1 * 60 * 60 * 1000, //  1 hrs
         httpOnly: true,
-        sameSite: process.env.NODE_ENV !== "production" ? "lax" : "strict",
-        secure: process.env.MODE === "production",
+        sameSite: process.env.NODE_ENV !== "production" ? "lax" : "none",
+        secure: process.env.NODE_ENV === "production",
         signed: true,
         path: '/',
-        domain: '.vercel.app'
+        domain: undefined
     },
     COOKIE_OPTIONS_CSRF: {
         maxAge: 1 * 60 * 60 * 1000, //  1 hrs
         httpOnly: false,
-        sameSite: process.env.NODE_ENV !== "production" ? "lax" : "strict",
-        secure: process.env.MODE === "production",
+        sameSite: process.env.NODE_ENV !== "production" ? "lax" : "none",
+        secure: process.env.NODE_ENV === "production",
         path: '/',
-        domain: '.vercel.app'
+        domain: undefined
     },
     JWT_EXPIRE: '1hr',
     SESSION_EXPIRE: 1 * 60 * 60 * 1000,
