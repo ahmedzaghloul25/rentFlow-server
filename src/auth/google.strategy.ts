@@ -8,7 +8,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     super({
       clientID: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-      callbackURL: 'https://rentflow-client.vercel.app/auth/google-redirect',
+      callbackURL: `${process.env.BACKEND_PUBLIC_URL}/auth/google-redirect`,
       scope: ['email', 'profile'],
       passReqToCallback: true
     });
