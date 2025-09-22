@@ -5,6 +5,7 @@ import { JwtToken } from '../../common/services/jwtService';
 import { Response } from 'express';
 import { APP_CONSTANTS } from '../../common/constants/constants';
 import { UserDoc } from '../DB/schema/user.schema';
+import { randomBytes } from 'crypto';
 
 
 @Injectable()
@@ -23,7 +24,7 @@ export class AuthService {
      */
     async googleAuth(req: GoogleReq, res: Response) {
         try {
-            let _user : UserDoc | null = null
+            let _user: UserDoc | null = null
             const { user } = req
             _user = await this.userRepo.findOneRecord({ email: user.email })
             if (!_user) {
@@ -32,8 +33,10 @@ export class AuthService {
             }
             const accessToken = await this.jwtToken.createToken(_user)
             await this.userRepo.updateOneRecord({ _id: _user._id }, { isLoggedIn: true })
-            return res.cookie(APP_CONSTANTS.AUTH_TOKEN_NAME, accessToken, APP_CONSTANTS.COOKIE_OPTIONS_AUTH)
-                .redirect(`${process.env.CLIENT_URL}/dashboard`);
+            res.cookie(APP_CONSTANTS.AUTH_TOKEN_NAME, accessToken, APP_CONSTANTS.COOKIE_OPTIONS_AUTH)
+            const csrfToken = randomBytes(100).toString('hex')
+            res.cookie(APP_CONSTANTS.CSRF_TOKEN_NAME, csrfToken, APP_CONSTANTS.COOKIE_OPTIONS_CSRF)
+            return res.redirect(`${process.env.CLIENT_URL}/dashboard`);
         } catch (error) {
             this.logger.error(`Failed to login for user ${req.user.email}`, error.stack, AuthService.name)
             throw new InternalServerErrorException('FAILED_TO_LOGIN')

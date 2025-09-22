@@ -15,6 +15,7 @@ const common_1 = require("@nestjs/common");
 const userRepo_1 = require("../DB/repo/userRepo");
 const jwtService_1 = require("../../common/services/jwtService");
 const constants_1 = require("../../common/constants/constants");
+const crypto_1 = require("crypto");
 let AuthService = AuthService_1 = class AuthService {
     userRepo;
     jwtToken;
@@ -35,8 +36,10 @@ let AuthService = AuthService_1 = class AuthService {
             }
             const accessToken = await this.jwtToken.createToken(_user);
             await this.userRepo.updateOneRecord({ _id: _user._id }, { isLoggedIn: true });
-            return res.cookie(constants_1.APP_CONSTANTS.AUTH_TOKEN_NAME, accessToken, constants_1.APP_CONSTANTS.COOKIE_OPTIONS_AUTH)
-                .redirect(`${process.env.CLIENT_URL}/dashboard`);
+            res.cookie(constants_1.APP_CONSTANTS.AUTH_TOKEN_NAME, accessToken, constants_1.APP_CONSTANTS.COOKIE_OPTIONS_AUTH);
+            const csrfToken = (0, crypto_1.randomBytes)(100).toString('hex');
+            res.cookie(constants_1.APP_CONSTANTS.CSRF_TOKEN_NAME, csrfToken, constants_1.APP_CONSTANTS.COOKIE_OPTIONS_CSRF);
+            return res.redirect(`${process.env.CLIENT_URL}/dashboard`);
         }
         catch (error) {
             this.logger.error(`Failed to login for user ${req.user.email}`, error.stack, AuthService_1.name);

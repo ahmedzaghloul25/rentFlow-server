@@ -12,7 +12,6 @@ export declare class AuthController {
         } & {
             __v: number;
         };
-        csrfToken: string;
     };
     logout(req: _Request, res: Response): Promise<Response<any, Record<string, any>>>;
 }

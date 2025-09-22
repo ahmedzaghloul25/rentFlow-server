@@ -17,8 +17,6 @@ const common_1 = require("@nestjs/common");
 const auth_service_1 = require("./auth.service");
 const passport_1 = require("@nestjs/passport");
 const validateToken_1 = require("../../common/guards/validateToken");
-const crypto_1 = require("crypto");
-const constants_1 = require("../../common/constants/constants");
 let AuthController = class AuthController {
     authService;
     constructor(authService) {
@@ -30,9 +28,7 @@ let AuthController = class AuthController {
     }
     getProfile(req, res) {
         try {
-            const csrfToken = (0, crypto_1.randomBytes)(100).toString('hex');
-            res.cookie(constants_1.APP_CONSTANTS.CSRF_TOKEN_NAME, csrfToken, constants_1.APP_CONSTANTS.COOKIE_OPTIONS_CSRF);
-            return { user: req.user, csrfToken };
+            return { user: req.user };
         }
         catch (error) {
             throw new common_1.InternalServerErrorException('ERROR_GETTING_PROFILE');
