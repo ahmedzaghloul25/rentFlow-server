@@ -16,7 +16,7 @@ async function bootstrap() {
   const port = process.env.PORT ?? 3000;
   app.use(helmet());
   app.enableCors({
-    origin: process.env.CLIENT_URL,
+    origin: '*',
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: [
