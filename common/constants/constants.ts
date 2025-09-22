@@ -6,16 +6,16 @@ export const APP_CONSTANTS = {
     COOKIE_OPTIONS_AUTH: {
         maxAge: 1 * 60 * 60 * 1000, //  1 hrs
         httpOnly: true,
-        sameSite: process.env.NODE_ENV !== "production" ? "lax" : "none",
-        secure: process.env.NODE_ENV === "production",
+        sameSite: 'lax',
+        secure: true,
         signed: true,
         path: '/',
     },
     COOKIE_OPTIONS_CSRF: {
         maxAge: 1 * 60 * 60 * 1000, //  1 hrs
         httpOnly: true,
-        sameSite: process.env.NODE_ENV !== "production" ? "lax" : "none",
-        secure: process.env.NODE_ENV === "production",
+        sameSite: 'lax',
+        secure: true,
         path: '/',
     },
     JWT_EXPIRE: '1hr',
