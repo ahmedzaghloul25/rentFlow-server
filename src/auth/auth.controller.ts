@@ -26,8 +26,8 @@ export class AuthController {
     @UseGuards(ValidateToken)
     getProfile(@Req() req: _Request, @Res({ passthrough: true }) res: Response) {
         try {
-            // const csrfToken = randomBytes(100).toString('hex')
-            // res.cookie(APP_CONSTANTS.CSRF_TOKEN_NAME, csrfToken, APP_CONSTANTS.COOKIE_OPTIONS_CSRF)
+            const csrfToken = randomBytes(100).toString('hex')
+            res.cookie(APP_CONSTANTS.CSRF_TOKEN_NAME, csrfToken, APP_CONSTANTS.COOKIE_OPTIONS_CSRF)
             return { user: req.user }
         } catch (error) {
             throw new InternalServerErrorException('ERROR_GETTING_PROFILE')

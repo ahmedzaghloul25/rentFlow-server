@@ -34,8 +34,6 @@ export class AuthService {
             const accessToken = await this.jwtToken.createToken(_user)
             await this.userRepo.updateOneRecord({ _id: _user._id }, { isLoggedIn: true })
             res.cookie(APP_CONSTANTS.AUTH_TOKEN_NAME, accessToken, APP_CONSTANTS.COOKIE_OPTIONS_AUTH)
-            const csrfToken = randomBytes(100).toString('hex')
-            res.cookie(APP_CONSTANTS.CSRF_TOKEN_NAME, csrfToken, APP_CONSTANTS.COOKIE_OPTIONS_CSRF)
             return res.redirect(`${process.env.CLIENT_URL}/dashboard`);
         } catch (error) {
             this.logger.error(`Failed to login for user ${req.user.email}`, error.stack, AuthService.name)
