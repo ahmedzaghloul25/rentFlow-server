@@ -14,25 +14,25 @@ async function bootstrap() {
     logger: WinstonLogger
   });
   const port = process.env.PORT ?? 3000;
-  app.use(helmet());
+  // app.use(helmet());
   app.enableCors({
     origin: process.env.CLIENT_URL,
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    allowedHeaders: [
-      'Origin',
-      'X-Requested-With',
-      'Content-Type',
-      'Accept',
-      'Authorization',
-      'Cookie',
-      'Set-Cookie',
-      'X-CSRF-Token'
-    ],
-    exposedHeaders: ['Set-Cookie'],
+    // methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    // allowedHeaders: [
+    //   'Origin',
+    //   'X-Requested-With',
+    //   'Content-Type',
+    //   'Accept',
+    //   'Authorization',
+    //   'Cookie',
+    //   'Set-Cookie',
+    //   'X-CSRF-Token'
+    // ],
+    // exposedHeaders: ['Set-Cookie'],
   });
   app.use(cookieParser(process.env.COOKIE_SECRET as string));
-  app.use(passport.initialize());
+  // app.use(passport.initialize());
   app.use((req: Request, res: Response, next: NextFunction) => {
     console.log('--- COOKIE DEBUGGER ---');
     console.log('Raw Cookies:', req.cookies);
