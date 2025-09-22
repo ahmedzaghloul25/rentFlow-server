@@ -8,23 +8,18 @@ const app_module_1 = require("./app.module");
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const common_1 = require("@nestjs/common");
 const winston_config_1 = require("../common/logger/winston.config");
+const helmet_1 = __importDefault(require("helmet"));
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule, {
         logger: winston_config_1.WinstonLogger
     });
     const port = process.env.PORT ?? 3000;
+    app.use((0, helmet_1.default)());
     app.enableCors({
         origin: process.env.CLIENT_URL,
         credentials: true,
     });
     app.use((0, cookie_parser_1.default)(process.env.COOKIE_SECRET));
-    app.use((req, res, next) => {
-        console.log('--- COOKIE DEBUGGER ---');
-        console.log('Raw Cookies:', req.cookies);
-        console.log('Signed Cookies:', req.signedCookies);
-        console.log('--- END COOKIE DEBUGGER ---');
-        next();
-    });
     app.useGlobalPipes(new common_1.ValidationPipe({
         whitelist: true,
         forbidNonWhitelisted: true,
