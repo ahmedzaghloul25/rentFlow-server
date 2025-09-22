@@ -11,15 +11,13 @@ exports.APP_CONSTANTS = {
         secure: process.env.NODE_ENV === "production",
         signed: true,
         path: '/',
-        domain: undefined
     },
     COOKIE_OPTIONS_CSRF: {
         maxAge: 1 * 60 * 60 * 1000,
-        httpOnly: false,
+        httpOnly: true,
         sameSite: process.env.NODE_ENV !== "production" ? "lax" : "none",
         secure: process.env.NODE_ENV === "production",
         path: '/',
-        domain: undefined
     },
     JWT_EXPIRE: '1hr',
     SESSION_EXPIRE: 1 * 60 * 60 * 1000,

@@ -13,7 +13,7 @@ export const APP_CONSTANTS = {
     },
     COOKIE_OPTIONS_CSRF: {
         maxAge: 1 * 60 * 60 * 1000, //  1 hrs
-        httpOnly: false,
+        httpOnly: true,
         sameSite: process.env.NODE_ENV !== "production" ? "lax" : "none",
         secure: process.env.NODE_ENV === "production",
         path: '/',

@@ -32,7 +32,7 @@ let AuthController = class AuthController {
         try {
             const csrfToken = (0, crypto_1.randomBytes)(100).toString('hex');
             res.cookie(constants_1.APP_CONSTANTS.CSRF_TOKEN_NAME, csrfToken, constants_1.APP_CONSTANTS.COOKIE_OPTIONS_CSRF);
-            return { user: req.user };
+            return { user: req.user, csrfToken };
         }
         catch (error) {
             throw new common_1.InternalServerErrorException('ERROR_GETTING_PROFILE');
