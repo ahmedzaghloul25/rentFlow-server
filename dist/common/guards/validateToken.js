@@ -11,26 +11,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ValidateToken = void 0;
 const common_1 = require("@nestjs/common");
-const constants_1 = require("../constants/constants");
 const jwtService_1 = require("../services/jwtService");
 const userRepo_1 = require("../../src/DB/repo/userRepo");
 let ValidateToken = class ValidateToken {
-    jewToken;
+    jwtToken;
     userRepo;
-    constructor(jewToken, userRepo) {
-        this.jewToken = jewToken;
+    constructor(jwtToken, userRepo) {
+        this.jwtToken = jwtToken;
         this.userRepo = userRepo;
     }
     async canActivate(context) {
         const request = context.switchToHttp().getRequest();
-        const token = request.signedCookies[constants_1.APP_CONSTANTS.AUTH_TOKEN_NAME];
-        if (!token) {
-            throw new common_1.BadRequestException('TOKEN_NOT_FOUND');
+        const authHeader = request.headers.authorization;
+        if (!authHeader || !authHeader.startsWith('Bearer ')) {
+            throw new common_1.UnauthorizedException('TOKEN_NOT_FOUND_OR_MALFORMED');
         }
-        const validation = await this.jewToken.verifyToken(token);
+        const token = authHeader.split(' ')[1];
+        const validation = await this.jwtToken.verifyToken(token);
+        if (!validation) {
+            throw new common_1.UnauthorizedException('INVALID_TOKEN');
+        }
         const loggedInUser = await this.userRepo.findOneRecord({ _id: validation._id, isLoggedIn: true });
         if (!loggedInUser) {
-            return false;
+            throw new common_1.UnauthorizedException('USER_NOT_FOUND_OR_NOT_LOGGED_IN');
         }
         request.user = loggedInUser;
         return true;

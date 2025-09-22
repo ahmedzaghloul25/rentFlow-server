@@ -1,4 +1,4 @@
-import { HttpException, Injectable, InternalServerErrorException, Logger, NotFoundException } from '@nestjs/common';
+import { HttpException, Injectable, InternalServerErrorException, Logger, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { UserRepo } from '../DB/repo/userRepo';
 import { _Request, GoogleReq } from '../../common/types/types';
 import { JwtToken } from '../../common/services/jwtService';
@@ -16,27 +16,38 @@ export class AuthService {
         private logger: Logger
 
     ) { }
-    //=========================== googleAuth ====================================
+    //=========================== login ====================================
     /**
-     * user googleAuth
+     * user login
      * @param req - express request containing user information  
      * @returns accessToken in case user registered already
      */
-    async googleAuth(req: GoogleReq, res: Response) {
+    async login(body: {email: string, password: string}) {
+        // try {
+        //     let _user: UserDoc | null = null
+        //     const { user } = req
+        //     _user = await this.userRepo.findOneRecord({ email: user.email })
+        //     if (!_user) {
+        //         _user = await this.userRepo.createNew(req.user) as UserDoc
+        //         this.logger.log(`New user registered ${_user._id}`, AuthService.name)
+        //     }
+        //     const accessToken = await this.jwtToken.createToken(_user)
+        //     await this.userRepo.updateOneRecord({ _id: _user._id }, { isLoggedIn: true })
+        //     res.cookie(APP_CONSTANTS.AUTH_TOKEN_NAME, accessToken, APP_CONSTANTS.COOKIE_OPTIONS_AUTH)
+        //     return res.redirect(`${process.env.CLIENT_URL}/dashboard`);
+        // } catch (error) {
+        //     this.logger.error(`Failed to login for user ${req.user.email}`, error.stack, AuthService.name)
+        //     throw new InternalServerErrorException('FAILED_TO_LOGIN')
+        // }
         try {
-            let _user: UserDoc | null = null
-            const { user } = req
-            _user = await this.userRepo.findOneRecord({ email: user.email })
-            if (!_user) {
-                _user = await this.userRepo.createNew(req.user) as UserDoc
-                this.logger.log(`New user registered ${_user._id}`, AuthService.name)
-            }
-            const accessToken = await this.jwtToken.createToken(_user)
-            await this.userRepo.updateOneRecord({ _id: _user._id }, { isLoggedIn: true })
-            res.cookie(APP_CONSTANTS.AUTH_TOKEN_NAME, accessToken, APP_CONSTANTS.COOKIE_OPTIONS_AUTH)
-            return res.redirect(`${process.env.CLIENT_URL}/dashboard`);
+            const user = await this.userRepo.findOneRecord({email: body.email})
+            if(!user || user.password !== body.password) throw new UnauthorizedException('INVALID_CREDENTIALS')
+            const token = await this.jwtToken.createToken(user)
+            await this.userRepo.updateOneRecord({_id: user._id}, {isLoggedIn: true})
+            return {token}
         } catch (error) {
-            this.logger.error(`Failed to login for user ${req.user.email}`, error.stack, AuthService.name)
+            if(error instanceof HttpException) throw error
+            this.logger.error(`Failed to login for user ${body.email}`, error.stack, AuthService.name)
             throw new InternalServerErrorException('FAILED_TO_LOGIN')
         }
 
@@ -53,17 +64,17 @@ export class AuthService {
             if (!result.modifiedCount) {
                 throw new NotFoundException('USER_NOT_FOUND')
             }
-            res.clearCookie(APP_CONSTANTS.AUTH_TOKEN_NAME, {
-                httpOnly: APP_CONSTANTS.COOKIE_OPTIONS_AUTH.httpOnly,
-                sameSite: APP_CONSTANTS.COOKIE_OPTIONS_AUTH.sameSite,
-                secure: APP_CONSTANTS.COOKIE_OPTIONS_AUTH.secure,
-                signed: APP_CONSTANTS.COOKIE_OPTIONS_AUTH.signed
-            })
-            res.clearCookie(APP_CONSTANTS.CSRF_TOKEN_NAME, {
-                httpOnly: APP_CONSTANTS.COOKIE_OPTIONS_CSRF.httpOnly,
-                sameSite: APP_CONSTANTS.COOKIE_OPTIONS_CSRF.sameSite,
-                secure: APP_CONSTANTS.COOKIE_OPTIONS_CSRF.secure,
-            })
+            // res.clearCookie(APP_CONSTANTS.AUTH_TOKEN_NAME, {
+            //     httpOnly: APP_CONSTANTS.COOKIE_OPTIONS_AUTH.httpOnly,
+            //     sameSite: APP_CONSTANTS.COOKIE_OPTIONS_AUTH.sameSite,
+            //     secure: APP_CONSTANTS.COOKIE_OPTIONS_AUTH.secure,
+            //     signed: APP_CONSTANTS.COOKIE_OPTIONS_AUTH.signed
+            // })
+            // res.clearCookie(APP_CONSTANTS.CSRF_TOKEN_NAME, {
+            //     httpOnly: APP_CONSTANTS.COOKIE_OPTIONS_CSRF.httpOnly,
+            //     sameSite: APP_CONSTANTS.COOKIE_OPTIONS_CSRF.sameSite,
+            //     secure: APP_CONSTANTS.COOKIE_OPTIONS_CSRF.secure,
+            // })
             return res.status(200).json({ message: 'logged out successfully' })
         } catch (error) {
             if (error instanceof HttpException) throw error

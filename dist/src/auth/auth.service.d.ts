@@ -1,6 +1,6 @@
 import { Logger } from '@nestjs/common';
 import { UserRepo } from '../DB/repo/userRepo';
-import { _Request, GoogleReq } from '../../common/types/types';
+import { _Request } from '../../common/types/types';
 import { JwtToken } from '../../common/services/jwtService';
 import { Response } from 'express';
 export declare class AuthService {
@@ -8,6 +8,11 @@ export declare class AuthService {
     private readonly jwtToken;
     private logger;
     constructor(userRepo: UserRepo, jwtToken: JwtToken, logger: Logger);
-    googleAuth(req: GoogleReq, res: Response): Promise<void>;
+    login(body: {
+        email: string;
+        password: string;
+    }): Promise<{
+        token: string;
+    }>;
     logout(req: _Request, res: Response): Promise<Response<any, Record<string, any>>>;
 }

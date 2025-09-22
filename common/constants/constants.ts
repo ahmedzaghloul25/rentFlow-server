@@ -7,15 +7,17 @@ export const APP_CONSTANTS = {
         maxAge: 1 * 60 * 60 * 1000, //  1 hrs
         httpOnly: true,
         sameSite: 'lax',
-        secure: true,
+        secure: false,
         signed: true,
+        partitioned: true,
         path: '/',
     },
     COOKIE_OPTIONS_CSRF: {
         maxAge: 1 * 60 * 60 * 1000, //  1 hrs
         httpOnly: true,
         sameSite: 'lax',
-        secure: true,
+        secure: false,
+        partitioned: true,
         path: '/',
     },
     JWT_EXPIRE: '1hr',

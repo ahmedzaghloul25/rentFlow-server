@@ -15,8 +15,7 @@ let User = class User {
     firstName;
     lastName;
     email;
-    isVerified;
-    picture;
+    password;
     isLoggedIn;
     fullName;
 };
@@ -46,14 +45,11 @@ __decorate([
 ], User.prototype, "email", void 0);
 __decorate([
     (0, mongoose_1.Prop)({
+        minLength: 6,
         required: true
     }),
-    __metadata("design:type", Boolean)
-], User.prototype, "isVerified", void 0);
-__decorate([
-    (0, mongoose_1.Prop)(),
     __metadata("design:type", String)
-], User.prototype, "picture", void 0);
+], User.prototype, "password", void 0);
 __decorate([
     (0, mongoose_1.Prop)({
         default: false

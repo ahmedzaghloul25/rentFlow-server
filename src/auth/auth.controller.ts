@@ -1,4 +1,4 @@
-import { Controller, Get, InternalServerErrorException, Post, Req, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, InternalServerErrorException, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
 import type { _Request, GoogleReq } from '../../common/types/types';
@@ -12,23 +12,26 @@ export class AuthController {
     constructor(private authService: AuthService,
     ) { }
 
-    @Get('google')
-    @UseGuards(AuthGuard('google'))
-    async authGoogle(@Req() req) { }
-
-    @Get('google-redirect')
-    @UseGuards(AuthGuard('google'))
-    async googleAuthRedirect(@Req() req: GoogleReq, @Res() res: Response) {
-        return await this.authService.googleAuth(req, res)
+    @Post('login')
+    // @UseGuards(AuthGuard('google'))
+    async login(@Body() body : {email: string, password: string}) {
+        return await this.authService.login(body)
     }
+
+    // @Get('google-redirect')
+    // @UseGuards(AuthGuard('google'))
+    // async googleAuthRedirect(@Req() req: GoogleReq, @Res() res: Response) {
+    //     return await this.authService.googleAuth(req, res)
+    // }
 
     @Get('profile')
     @UseGuards(ValidateToken)
     getProfile(@Req() req: _Request, @Res({ passthrough: true }) res: Response) {
         try {
-            const csrfToken = randomBytes(100).toString('hex')
-            res.cookie(APP_CONSTANTS.CSRF_TOKEN_NAME, csrfToken, APP_CONSTANTS.COOKIE_OPTIONS_CSRF)
-            return { user: req.user, csrfToken }
+            // const csrfToken = randomBytes(100).toString('hex')
+            // console.log('csrf token server', csrfToken);
+            // res.cookie(APP_CONSTANTS.CSRF_TOKEN_NAME, csrfToken, APP_CONSTANTS.COOKIE_OPTIONS_CSRF)
+            return { user: req.user }
         } catch (error) {
             throw new InternalServerErrorException('ERROR_GETTING_PROFILE')
         }

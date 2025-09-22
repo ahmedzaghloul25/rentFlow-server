@@ -5,7 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@nestjs/core");
 const app_module_1 = require("./app.module");
-const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const common_1 = require("@nestjs/common");
 const winston_config_1 = require("../common/logger/winston.config");
 const helmet_1 = __importDefault(require("helmet"));
@@ -19,7 +18,6 @@ async function bootstrap() {
         origin: process.env.CLIENT_URL,
         credentials: true,
     });
-    app.use((0, cookie_parser_1.default)(process.env.COOKIE_SECRET));
     app.useGlobalPipes(new common_1.ValidationPipe({
         whitelist: true,
         forbidNonWhitelisted: true,

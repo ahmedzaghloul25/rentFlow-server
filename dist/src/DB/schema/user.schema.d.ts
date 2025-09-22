@@ -3,8 +3,7 @@ export declare class User {
     firstName: string;
     lastName: string;
     email: string;
-    isVerified: boolean;
-    picture: string;
+    password: string;
     isLoggedIn: boolean;
     fullName: string;
 }

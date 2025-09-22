@@ -5,15 +5,17 @@ export declare const APP_CONSTANTS: {
         readonly maxAge: number;
         readonly httpOnly: true;
         readonly sameSite: "lax";
-        readonly secure: true;
+        readonly secure: false;
         readonly signed: true;
+        readonly partitioned: true;
         readonly path: "/";
     };
     readonly COOKIE_OPTIONS_CSRF: {
         readonly maxAge: number;
         readonly httpOnly: true;
         readonly sameSite: "lax";
-        readonly secure: true;
+        readonly secure: false;
+        readonly partitioned: true;
         readonly path: "/";
     };
     readonly JWT_EXPIRE: "1hr";

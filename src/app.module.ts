@@ -38,6 +38,6 @@ import { CronModule } from './cron/cron.module';
     CronModule
   ],
   controllers: [AppController],
-  providers: [AppService, { provide: APP_GUARD, useClass: ValidateCsrf }],
+  providers: [AppService],
 })
 export class AppModule { }

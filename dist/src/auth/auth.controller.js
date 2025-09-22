@@ -15,24 +15,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
 const auth_service_1 = require("./auth.service");
-const passport_1 = require("@nestjs/passport");
 const validateToken_1 = require("../../common/guards/validateToken");
-const crypto_1 = require("crypto");
-const constants_1 = require("../../common/constants/constants");
 let AuthController = class AuthController {
     authService;
     constructor(authService) {
         this.authService = authService;
     }
-    async authGoogle(req) { }
-    async googleAuthRedirect(req, res) {
-        return await this.authService.googleAuth(req, res);
+    async login(body) {
+        return await this.authService.login(body);
     }
     getProfile(req, res) {
         try {
-            const csrfToken = (0, crypto_1.randomBytes)(100).toString('hex');
-            res.cookie(constants_1.APP_CONSTANTS.CSRF_TOKEN_NAME, csrfToken, constants_1.APP_CONSTANTS.COOKIE_OPTIONS_CSRF);
-            return { user: req.user, csrfToken };
+            return { user: req.user };
         }
         catch (error) {
             throw new common_1.InternalServerErrorException('ERROR_GETTING_PROFILE');
@@ -44,22 +38,12 @@ let AuthController = class AuthController {
 };
 exports.AuthController = AuthController;
 __decorate([
-    (0, common_1.Get)('google'),
-    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('google')),
-    __param(0, (0, common_1.Req)()),
+    (0, common_1.Post)('login'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
-], AuthController.prototype, "authGoogle", null);
-__decorate([
-    (0, common_1.Get)('google-redirect'),
-    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('google')),
-    __param(0, (0, common_1.Req)()),
-    __param(1, (0, common_1.Res)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Object]),
-    __metadata("design:returntype", Promise)
-], AuthController.prototype, "googleAuthRedirect", null);
+], AuthController.prototype, "login", null);
 __decorate([
     (0, common_1.Get)('profile'),
     (0, common_1.UseGuards)(validateToken_1.ValidateToken),

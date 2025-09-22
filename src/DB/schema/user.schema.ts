@@ -25,12 +25,17 @@ export class User {
     email: string
 
     @Prop({
+        minLength: 6,
         required: true
     })
-    isVerified: boolean
+    password: string
+    // @Prop({
+    //     required: true
+    // })
+    // isVerified: boolean
 
-    @Prop()
-    picture: string
+    // @Prop()
+    // picture: string
 
     @Prop({
         default: false
