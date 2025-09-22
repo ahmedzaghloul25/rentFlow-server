@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser'
 import { ValidationPipe } from '@nestjs/common';
 import { WinstonLogger } from '../common/logger/winston.config';
 import helmet from 'helmet';
+import { NextFunction, Request } from 'express';
 
 
 async function bootstrap() {
@@ -32,6 +33,13 @@ async function bootstrap() {
   });
   app.use(cookieParser(process.env.COOKIE_SECRET as string));
   app.use(passport.initialize());
+  app.use((req: Request, res: Response, next: NextFunction) => {
+    console.log('--- COOKIE DEBUGGER ---');
+    console.log('Raw Cookies:', req.cookies);
+    console.log('Signed Cookies:', req.signedCookies);
+    console.log('--- END COOKIE DEBUGGER ---');
+    next();
+  });
   app.useGlobalPipes(new ValidationPipe({
     whitelist: true,
     forbidNonWhitelisted: true,
