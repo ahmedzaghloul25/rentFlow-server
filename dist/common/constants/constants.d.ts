@@ -4,16 +4,16 @@ export declare const APP_CONSTANTS: {
     readonly COOKIE_OPTIONS_AUTH: {
         readonly maxAge: number;
         readonly httpOnly: true;
-        readonly sameSite: "lax" | "none";
-        readonly secure: boolean;
+        readonly sameSite: "lax";
+        readonly secure: true;
         readonly signed: true;
         readonly path: "/";
     };
     readonly COOKIE_OPTIONS_CSRF: {
         readonly maxAge: number;
         readonly httpOnly: true;
-        readonly sameSite: "lax" | "none";
-        readonly secure: boolean;
+        readonly sameSite: "lax";
+        readonly secure: true;
         readonly path: "/";
     };
     readonly JWT_EXPIRE: "1hr";

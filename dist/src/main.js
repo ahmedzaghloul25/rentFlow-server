@@ -34,6 +34,13 @@ async function bootstrap() {
     });
     app.use((0, cookie_parser_1.default)(process.env.COOKIE_SECRET));
     app.use(passport_1.default.initialize());
+    app.use((req, res, next) => {
+        console.log('--- COOKIE DEBUGGER ---');
+        console.log('Raw Cookies:', req.cookies);
+        console.log('Signed Cookies:', req.signedCookies);
+        console.log('--- END COOKIE DEBUGGER ---');
+        next();
+    });
     app.useGlobalPipes(new common_1.ValidationPipe({
         whitelist: true,
         forbidNonWhitelisted: true,
