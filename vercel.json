@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "$schema": "https://openapi.vercel.sh/schema",
   "builds": [
     {
       "src": "src/main.ts",
@@ -19,7 +20,7 @@
     },
     {
       "path": "/cron/create-payments",
-      "schedule": "0 6 * * *"
+      "schedule": "0 17 * * *"
     }
   ]
 }
