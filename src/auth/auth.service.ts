@@ -51,7 +51,7 @@ export class AuthService {
     async login(body: { email: string, password: string }) {
         try {
             const user = await this.userRepo.findOneRecord({ email: body.email })
-            if (!user || this.hashing.verifyHash(body.password, user.password)) throw new UnauthorizedException('INVALID_CREDENTIALS')
+            if (!user || !this.hashing.verifyHash(body.password, user.password)) throw new UnauthorizedException('INVALID_CREDENTIALS')
             const token = await this.jwtToken.createToken(user)
             await this.userRepo.updateOneRecord({ _id: user._id }, { isLoggedIn: true })
             return { token }
