@@ -20,11 +20,11 @@ export class ValidateToken implements CanActivate {
         if (!validation) {
             throw new UnauthorizedException('INVALID_TOKEN');
         }
-        const loggedInUser = await this.userRepo.findOneRecord({ _id: validation._id, isLoggedIn: true });
-        if (!loggedInUser) {
+        const _user = await this.userRepo.findOneRecord({ _id: validation._id });
+        if (!_user) {
             throw new UnauthorizedException('USER_NOT_FOUND_OR_NOT_LOGGED_IN');
         }
-        request.user = loggedInUser;
+        request.user = _user;
         return true;
     }
 }
