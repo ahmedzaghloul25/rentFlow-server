@@ -14,7 +14,6 @@
 
   * **Backend:** [NestJS](https://docs.nestjs.com/)
   * **Database:** [Mongoose](https://mongoosejs.com/) (for MongoDB)
-  * **Authentication:** [Passport.js](http://www.passportjs.org/)
   * **Logging:** [Winston](https://github.com/winstonjs/winston)
 
 ## 🚀 Getting Started
@@ -40,24 +39,6 @@ Follow these instructions to get a copy of the project up and running on your lo
 
     ```bash
     npm install
-    ```
-
-3.  **Set up environment variables:**
-    Create a `.env` file in the root directory and add the following variables:
-
-    ```env
-    DB_URL=<your-local-mongodb-uri>
-    DB_ONLINE=<your-online-mongodb-uri>
-    PORT=3000
-    SALT_ROUND=10
-    GOOGLE_CLIENT_ID=<google-oauth-client-id>
-    GOOGLE_CLIENT_SECRET=<google-oauth-client-secret>
-    SESSION_SECRET=<your-express-session-secret>
-    JWT_SECRET_ACCESS=<your-jwt-secret>
-    MODE=development
-    COOKIE_SECRET=<your-cookie-secret>
-    CSRF_SECRET=<your-csrf-secret>
-    CLIENT_URL=<your-client-url-(deployed)>
     ```
 
 ## ⚙️ Usage

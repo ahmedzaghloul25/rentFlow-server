@@ -1,4 +1,4 @@
-import { registerDecorator, ValidationOptions, ValidationArguments } from "class-validator";
+import { registerDecorator, ValidationOptions } from "class-validator";
 
 /**
  * validate that entered date is greater than today

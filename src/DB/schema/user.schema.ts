@@ -29,13 +29,6 @@ export class User {
         required: true
     })
     password: string
-    // @Prop({
-    //     required: true
-    // })
-    // isVerified: boolean
-
-    // @Prop()
-    // picture: string
 
     @Prop({
         default: false

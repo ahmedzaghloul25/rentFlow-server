@@ -1,6 +1,6 @@
-import { BadRequestException, CanActivate, ExecutionContext, Injectable, UnauthorizedException } from "@nestjs/common";
+import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from "@nestjs/common";
 import { JwtToken } from "../services/jwtService";
-import { UserRepo } from "src/DB/repo/userRepo";
+import { UserRepo } from "../../src/DB/repo/userRepo";
 
 @Injectable()
 export class ValidateToken implements CanActivate {

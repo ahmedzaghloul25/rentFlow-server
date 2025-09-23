@@ -1,11 +1,10 @@
 import { HttpException, Injectable, InternalServerErrorException, Logger, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { UserRepo } from '../DB/repo/userRepo';
-import { _Request, GoogleReq } from '../../common/types/types';
+import { _Request } from '../../common/types/types';
 import { JwtToken } from '../../common/services/jwtService';
 import { Response } from 'express';
-import { APP_CONSTANTS } from '../../common/constants/constants';
-import { UserDoc } from '../DB/schema/user.schema';
-import { randomBytes } from 'crypto';
+import { Hashing } from '../../common/services/hash';
+import { UserDoc } from 'src/DB/schema/user.schema';
 
 
 @Injectable()
@@ -13,40 +12,51 @@ export class AuthService {
     constructor(
         private readonly userRepo: UserRepo,
         private readonly jwtToken: JwtToken,
-        private logger: Logger
+        private logger: Logger,
+        private hashing: Hashing
 
     ) { }
+    //=========================== register ================================
+    /**
+     * user registration
+     * @param body - object containing user information
+     * @returns success boolean
+     */
+    async register(body: { email: string, password: string, firstName: string, lastName: string, secret: string }) {
+        try {
+            const _secret = process.env.REGISTER_SECRET
+            if (body.secret !== _secret) {
+                this.logger.warn(`Attempt to register with invalid secret ${body.email}`, AuthService.name)
+                return { success: true }
+            }
+            const user = await this.userRepo.createNew({
+                email: body.email,
+                password: this.hashing.createHash(body.password),
+                firstName: body.firstName,
+                lastName: body.lastName
+            }) as UserDoc
+            this.logger.log(`New user registered ${user.email}`, AuthService.name)
+            return { success: true }
+        } catch (error) {
+            this.logger.error(`Failed to register user ${body.email}`, error.stack, AuthService.name)
+            throw new InternalServerErrorException('FAILED_TO_REGISTER')
+        }
+    }
     //=========================== login ====================================
     /**
      * user login
      * @param req - express request containing user information  
      * @returns accessToken in case user registered already
      */
-    async login(body: {email: string, password: string}) {
-        // try {
-        //     let _user: UserDoc | null = null
-        //     const { user } = req
-        //     _user = await this.userRepo.findOneRecord({ email: user.email })
-        //     if (!_user) {
-        //         _user = await this.userRepo.createNew(req.user) as UserDoc
-        //         this.logger.log(`New user registered ${_user._id}`, AuthService.name)
-        //     }
-        //     const accessToken = await this.jwtToken.createToken(_user)
-        //     await this.userRepo.updateOneRecord({ _id: _user._id }, { isLoggedIn: true })
-        //     res.cookie(APP_CONSTANTS.AUTH_TOKEN_NAME, accessToken, APP_CONSTANTS.COOKIE_OPTIONS_AUTH)
-        //     return res.redirect(`${process.env.CLIENT_URL}/dashboard`);
-        // } catch (error) {
-        //     this.logger.error(`Failed to login for user ${req.user.email}`, error.stack, AuthService.name)
-        //     throw new InternalServerErrorException('FAILED_TO_LOGIN')
-        // }
+    async login(body: { email: string, password: string }) {
         try {
-            const user = await this.userRepo.findOneRecord({email: body.email})
-            if(!user || user.password !== body.password) throw new UnauthorizedException('INVALID_CREDENTIALS')
+            const user = await this.userRepo.findOneRecord({ email: body.email })
+            if (!user || this.hashing.verifyHash(body.password, user.password)) throw new UnauthorizedException('INVALID_CREDENTIALS')
             const token = await this.jwtToken.createToken(user)
-            await this.userRepo.updateOneRecord({_id: user._id}, {isLoggedIn: true})
-            return {token}
+            await this.userRepo.updateOneRecord({ _id: user._id }, { isLoggedIn: true })
+            return { token }
         } catch (error) {
-            if(error instanceof HttpException) throw error
+            if (error instanceof HttpException) throw error
             this.logger.error(`Failed to login for user ${body.email}`, error.stack, AuthService.name)
             throw new InternalServerErrorException('FAILED_TO_LOGIN')
         }
@@ -64,17 +74,6 @@ export class AuthService {
             if (!result.modifiedCount) {
                 throw new NotFoundException('USER_NOT_FOUND')
             }
-            // res.clearCookie(APP_CONSTANTS.AUTH_TOKEN_NAME, {
-            //     httpOnly: APP_CONSTANTS.COOKIE_OPTIONS_AUTH.httpOnly,
-            //     sameSite: APP_CONSTANTS.COOKIE_OPTIONS_AUTH.sameSite,
-            //     secure: APP_CONSTANTS.COOKIE_OPTIONS_AUTH.secure,
-            //     signed: APP_CONSTANTS.COOKIE_OPTIONS_AUTH.signed
-            // })
-            // res.clearCookie(APP_CONSTANTS.CSRF_TOKEN_NAME, {
-            //     httpOnly: APP_CONSTANTS.COOKIE_OPTIONS_CSRF.httpOnly,
-            //     sameSite: APP_CONSTANTS.COOKIE_OPTIONS_CSRF.sameSite,
-            //     secure: APP_CONSTANTS.COOKIE_OPTIONS_CSRF.secure,
-            // })
             return res.status(200).json({ message: 'logged out successfully' })
         } catch (error) {
             if (error instanceof HttpException) throw error

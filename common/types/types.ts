@@ -10,18 +10,6 @@ export enum PaymentMethodEnum {
     E_WALLET = 'E-WALLET'
 }
 
-export interface GoogleReq extends Request {
-    user: {
-        email: string,
-        firstName: string,
-        lastName: string,
-        isVerified: boolean,
-        picture?: string,
-        authIntent: 'login' | 'signup'
-
-    }
-}
-
 export interface _Request extends Request {
     user: UserDoc
 }
